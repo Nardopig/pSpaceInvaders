@@ -51,60 +51,38 @@ public class Game {
     
 	
     
-    public int getScore() {
-		return score;
-	}
-
     
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-
-	public int getCycleCount() {
-		return cycleCount;
-	}
-
-	public void setCycleCount(int cycleCount) {
-		this.cycleCount = cycleCount;
-	}
-    
-    public Ovni getOvni() {
-		return ovni;
-	}
-
-
-
-	public void setOvni(Ovni ovni) {
-		this.ovni = ovni;
-	}
-
-
-
-	public UCMShip getShip() {
-		return ship;
-	}
-
-
-
-	public void setShip(UCMShip ship) {
-		this.ship = ship;
-	}
-
-
 
 	public int getDestroyerLife(int line, int row) {
-    	int life = 0; 
-        for (int i = 0; i < destroyerList.getCounter(); i++) {
-            if (destroyerList.destroyers[i].getPosX() == line
-            		&& destroyerList.destroyers[i].getPosY() == row) {
-                life =  destroyerList.destroyers[i].getLife();
-            }
-        }
-        return life;
+    	return destroyerList.getDestroyerLife(line, row);
     }
     
+	public int getRegularLife(int line, int row) {
+    	return regularList.getRegularLife(line, row);
+    }
     
+	public boolean isDestroyerInPosition(int row, int col) {
+        return destroyerList.isDestroyerInPosition(row, col);
+    }
+	
+	public boolean isRegularInPosition(int row, int col) {
+        return regularList.isRegularInPosition(row, col);
+    }
+	
+	public boolean isBombInPosition(int row, int col) {
+		return bombList.isBombInPosition(row, col);
+	}
+	
+	public boolean isOvniInPosition(int row, int col) {
+        return (ovni.getPosX() == row && ovni.getPosY() == col);
+    }
+	
+	public boolean isUCMShipInPosition(int row, int col) {
+        return (ship.getPosX() == row && ship.getPosY() == col);
+    }
+	
+	
+	
     public void createRegularShips() {
     	int posx = 1;
     	int posy = 3;
@@ -130,19 +108,6 @@ public class Game {
     		destroyerList.addDestroyerShip(this, posx, posy);
     		posy++;
     	}	
-    }
-    
-    
-    
-    public int getRegularLife(int line, int row) {
-    	int life = 0;
-        for (int i = 0; i < regularList.getCounter(); i++) {
-            if (regularList.regulars[i].getPosX() == line
-            		&& regularList.regulars[i].getPosY() == row) {
-                life =  regularList.regulars[i].getLife();
-            }
-        }
-        return life;
     }
     
     
@@ -247,30 +212,15 @@ public class Game {
     		destroyerList.destroyers[i].update();
     		}
     	}
-    	
-    	
-    	
     	createOvni();
     	if (isOvniCreated())
     		ovni.update();
  
     	if (isLaserShot())
     	laserImpact();
-    	
     }
     
-    public DestroyerShipList getDestroyerList() {
-		return destroyerList;
-	}
-	public void setDestroyerList(DestroyerShipList destroyerList) {
-		this.destroyerList = destroyerList;
-	}
-	public RegularShipList getRegularList() {
-		return regularList;
-	}
-	public void setRegularList(RegularShipList regularList) {
-		this.regularList = regularList;
-	}
+    
 	
 	public boolean modLeftSide() {
     	return (crashes%2 == 0);
@@ -310,45 +260,7 @@ public class Game {
 		}
 	}
 	
-	public boolean isDestroyerInPosition(int row, int col) {
-        boolean found = false;
-        for (int i = 0; i < destroyerList.getCounter(); i++) {
-            if (destroyerList.destroyers[i].getPosX() == row && destroyerList.destroyers[i].getPosY() == col) {
-                found = true;
-            }
-        }
-        return found;
-    }
 	
-	public boolean isRegularInPosition(int row, int col) {
-        boolean found = false;
-        for (int i = 0; i < regularList.getCounter(); i++) {
-            if (regularList.regulars[i].getPosX() == row && regularList.regulars[i].getPosY() == col) {
-                found = true;
-            }
-        }
-        return found;
-    }
-	
-	public boolean isBombInPosition(int row, int col) {
-		boolean found = false;
-		for(int i = 0; i < destroyerList.getCounter(); i++) {
-			if(bombList.bombs[i] != null && bombList.bombs[i].getPosX() == row
-					&& bombList.bombs[i].getPosY()== col) {
-				found = true;
-			}
-		}
-		return found;
-	}
-	
-	
-	public boolean isOvniInPosition(int row, int col) {
-        return (ovni.getPosX() == row && ovni.getPosY() == col);
-    }
-	
-	public boolean isUCMShipInPosition(int row, int col) {
-        return (ship.getPosX() == row && ship.getPosY() == col);
-    }
 	
 	
 	
@@ -376,15 +288,14 @@ public class Game {
         gamePrinter = new GamePrinter(this, COLS, ROWS);
         return gamePrinter.toString();
     }
-
-
+	
 	public boolean isOvniCreated() {
 		return ovni != null;
 	}
 
 	public void deadOvni() {
-		score = score + ovni.getPoints();
-		ovni = null;
+		if(ovni.getLife() < 1)
+			ovni = null;
 	}
 	
 	public void ovniDisappear() {
@@ -395,60 +306,32 @@ public class Game {
 		laser = null;
 	}
 	
-	
-	
 	public void eliminateBomb(Bomb bomb) {
 		bomb = null;
 	}
-	
 
 	public int getShipPosX() {
 		return ship.getPosX();
 	}
 	
-	public void eliminateRegular(int life, int i) {
-		if(life == 0) {
-			score = score + regularList.regulars[i].getPoints();
-			regularList.eliminateRegularShip(i);
-		}
+	public void eliminateDeadDestroyers() {
+		score += destroyerList.eliminateDeadDestroyers();
 	}
 	
-	public void eliminateDestroyer(int life, int i) {
-		if(life == 0) {
-			score = score + destroyerList.destroyers[i].getPoints();
-			destroyerList.eliminateDestroyerShip(i);
-		}
+	public void eliminateDeadRegulars() {
+		score += regularList.eliminateDeadRegulars();	
 	}
 	
 	public void laserImpact() {
-		boolean impact = false;
 		if (laser != null) {
-		for (int i = 0; !impact && i < regularList.getCounter(); i++) {
-			if(laser.getPosX() == regularList.regulars[i].getPosX() &&
-				laser.getPosY() == regularList.regulars[i].getPosY()) {
-					regularList.regulars[i].setLife(regularList.regulars[i].getLife() -1);
-					eliminateRegular(regularList.regulars[i].getLife(),i);
-					eliminateLaser();
-					impact = true;
-			}
-		}
-		for(int i = 0; !impact && i < destroyerList.getCounter(); i++) {
-			if(laser.getPosX() == destroyerList.destroyers[i].getPosX() &&
-					laser.getPosY() == destroyerList.destroyers[i].getPosY()) {
-				destroyerList.destroyers[i].setLife(destroyerList.destroyers[i].getLife() - 1);
-				eliminateDestroyer(destroyerList.destroyers[i].getLife(),i);
-				eliminateLaser();
-				impact = true;
-				}
-			}
-		if(!impact && isOvniCreated() &&
-				laser.getPosX() == ovni.getPosX() && laser.getPosY() == ovni.getPosY()) {
+			score += regularList.laserImpact(laser.getPosX(), laser.getPosY(), laser.getHarm());
+			score += destroyerList.laserImpact(laser.getPosX(), laser.getPosY(), laser.getHarm());
+		if(isOvniCreated()) {
+			score += ovni.laserImpact(laser.getPosX(), laser.getPosY(), laser.getHarm());
 			deadOvni();
 			eliminateLaser();
-			impact = true;
 			ship.setShockWave(true);
 			}
-		
 		}
 	}
 	
@@ -469,13 +352,9 @@ public class Game {
 				ship.setLife(ship.getLife() - bombList.bombs[i].getHarm());
 				bombList.eliminateBomb(i);
 				destroyerList.destroyers[i].setBomb(false);
-			}
-				
-		}
-		
+			}		
+		}	
 	}
-
-
 
 	public void shootLaser() {
 		laser = new UCMShipLaser(this);
@@ -488,8 +367,6 @@ public class Game {
 	public boolean isLaserInPosition(int row, int col) {
 		return laser.getPosX() == row && laser.getPosY() == col;
 	}
-
-
 
 	public void shockWave() {
 		for(int i = 0; i < regularList.getCounter(); i++) {
@@ -510,39 +387,7 @@ public class Game {
 		return score + i;
 	}
 
-	public void eliminateDeadDestroyers() {
-		int i = 0;
-	while(i < destroyerList.getCounter()) {
-		if(destroyerList.destroyers[i].getLife() == 0) {
-			score = score + destroyerList.destroyers[i].getPoints();
-			destroyerList.destroyers[i] = null;
-			for(int j = i; destroyerList.getCounter() > 1
-					&& j < destroyerList.getCounter() ; j++) {
-				destroyerList.destroyers[j] = destroyerList.destroyers[j + 1];
-			}
-			i = 0;
-			destroyerList.setCounter(destroyerList.getCounter()-1);
-			}else
-		i++;
-		}
-	}
 	
-	public void eliminateDeadRegulars() {
-		int i = 0;
-	while(i < regularList.getCounter()) {
-		if(regularList.regulars[i].getLife() == 0) {
-			score = score + regularList.regulars[i].getPoints();
-			regularList.regulars[i] = null;
-			for(int j = i; regularList.getCounter() > 1
-					&& j < regularList.getCounter() ; j++) {
-				regularList.regulars[j] = regularList.regulars[j + 1];
-			}
-			i = 0;
-			regularList.setCounter(regularList.getCounter()-1);
-			}else
-		i++;
-		}
-	}
 	
 	public boolean canDropBomb(int i) {
 		double x = rand.nextDouble();
@@ -589,6 +434,55 @@ public class Game {
 
 	
 	
+	
+	public int getScore() {
+		return score;
+	}
+    
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
+	public int getCycleCount() {
+		return cycleCount;
+	}
+
+	public void setCycleCount(int cycleCount) {
+		this.cycleCount = cycleCount;
+	}
+    
+    public Ovni getOvni() {
+		return ovni;
+	}
+
+	public void setOvni(Ovni ovni) {
+		this.ovni = ovni;
+	}
+
+
+	public UCMShip getShip() {
+		return ship;
+	}
+
+	public void setShip(UCMShip ship) {
+		this.ship = ship;
 	}
 	
+	
+	public DestroyerShipList getDestroyerList() {
+		return destroyerList;
+	}
+	public void setDestroyerList(DestroyerShipList destroyerList) {
+		this.destroyerList = destroyerList;
+	}
+	public RegularShipList getRegularList() {
+		return regularList;
+	}
+	public void setRegularList(RegularShipList regularList) {
+		this.regularList = regularList;
+	}
+	}
+	
+
 

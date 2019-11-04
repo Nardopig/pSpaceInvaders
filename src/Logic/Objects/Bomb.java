@@ -11,7 +11,6 @@ public class Bomb {
 	private int harm;
 	
 	
-	
 	public Bomb(Game game, int posX, int posY) {
 		this.posX = posX;
 		this.posY = posY;

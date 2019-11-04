@@ -4,7 +4,7 @@ import Logic.Game;
 
 public class UCMShipLaser {
 
-	private int damage;
+	private int harm;
 	private int posX;
 	private int posY;
 	private Game game;
@@ -14,6 +14,7 @@ public class UCMShipLaser {
 		this.game = game;
 		this.posX = game.getShipPosX();
 		this.posY = game.getShipPosY();
+		harm = 1;
 	}
 	
 	public void update(){
@@ -32,12 +33,12 @@ public class UCMShipLaser {
 		posX--;
 	}
 	
-	public int getDamage() {
-		return damage;
+	public int getHarm() {
+		return harm;
 	}
 	
-	public void setDamage(int damage) {
-		this.damage = damage;
+	public void setHarm(int damage) {
+		this.harm = damage;
 	}
 
 	public int getPosX() {
@@ -71,6 +72,7 @@ public class UCMShipLaser {
 	public void setShot(boolean shot) {
 		this.shot = shot;
 	}
+
 	
 }
 

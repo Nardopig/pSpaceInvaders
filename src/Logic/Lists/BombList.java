@@ -22,5 +22,15 @@ public class BombList {
 		bombs[i] = null;
 	}
 
+	public boolean isBombInPosition(int row, int col) {
+		boolean found = false;
+		for(int i = 0; i < counter; i++) {
+			if(bombs[i] != null && bombs[i].getPosX() == row
+					&& bombs[i].getPosY()== col) {
+				found = true;
+			}
+		}
+		return found;
+	}
 	
 }

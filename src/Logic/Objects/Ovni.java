@@ -40,12 +40,31 @@ public class Ovni {
     }
     
 	public boolean ovniDentro() {
-		return (posY < 9 && posY >= 0);
+		return posY < 9 && posY >= 0;
 	}
 
-
+	public boolean isOvniInPosition(int row, int col) {
+        return posX == row && posY == col;
+    }
 	
-
+	public int laserImpact(int posXLaser, int posYLaser, int harm){
+		int points = 0;
+			if(isOvniInPosition(posXLaser, posYLaser)) {
+					life -= harm;
+					points = plusPoints();
+			}
+		return points;
+	}
+	
+	public int plusPoints(){
+		int points = 0;
+			if (life == 0){
+				points += this.points;
+			}
+		return points;
+	}
+	
+	
 	public int getPosX() {
 		return posX;
 	}
@@ -85,15 +104,5 @@ public class Ovni {
 	public int getPoints() {
 		return points;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
