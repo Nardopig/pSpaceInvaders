@@ -9,6 +9,7 @@ public class Bomb {
 	private Game game;
 	private boolean active;
 	private int harm;
+	private int points = 0;
 	
 	
 	public Bomb(Game game, int posX, int posY) {

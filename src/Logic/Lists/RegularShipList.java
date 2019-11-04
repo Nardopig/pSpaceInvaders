@@ -49,6 +49,7 @@ public class RegularShipList {
 	
 	public void eliminateRegularShip(int i) {
 		if(regulars[i].getLife() == 0){
+		regulars[i].getGame().plusPoints(regulars[i].getPoints());
         regulars[i] = null;
         if (counter > 1) {
             while (i < counter) {
@@ -83,12 +84,13 @@ public class RegularShipList {
         return found;
     }
 	
+	
+	
 	public int eliminateDeadRegulars() {
 		int points = 0;
 		int i = 0;
 		while(i < counter) {
 			if(regulars[i].getLife() == 0) {
-				points += plusPoints(i);
 				eliminateRegularShip(i);
 				}else
 			i++;
@@ -97,25 +99,18 @@ public class RegularShipList {
 	}
 	
 	
-	public int laserImpact(int posXLaser, int posYLaser, int harm){
-		int points = 0;
-		for (int i = 0; i < counter; i++) {
-			if(isRegularInPosition(posXLaser, posYLaser)) {
-					regulars[i].setLife(regulars[i].getLife() - harm);
-					points = plusPoints(i);
-					eliminateRegularShip(i);
-			}
-		}
-		return points;
+	public boolean laserImpact(int posXLaser, int posYLaser, int harm){
+		boolean impact = false;
+		for (int i = 0; !impact && i < counter; i++) {
+            if (regulars[i].getPosX() == posXLaser && regulars[i].getPosY() == posYLaser) {
+                impact = true;
+                regulars[i].setLife(regulars[i].getLife() - harm);
+                eliminateRegularShip(i);
+            }
+        }
+		return impact;
 	}
 	
-	public int plusPoints(int i){
-		int points = 0;
-			if (regulars[i].getLife() == 0){
-				points  = points + regulars[i].getPoints();
-			}
-		return points;
-	}
 }
 
 

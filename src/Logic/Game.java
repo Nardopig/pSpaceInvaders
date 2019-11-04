@@ -260,30 +260,6 @@ public class Game {
 		}
 	}
 	
-	
-	
-	
-	
-	public int getShipPosY() {
-		return ship.getPosY();
-	}
-	
-	public void shipMoveLeft() {
-		ship.setPosY(ship.getPosY() - 1);
-	}
-	
-	public void shipMoveRight() {
-		ship.setPosY(ship.getPosY() + 1);
-	}
-	
-	public boolean isShockWaveON() {
-		return ship.isShockWave();
-	}
-
-	public void setShockWave(boolean shockWave) {
-		this.shockWave = shockWave;
-	}
-	
 	public String toString() {
         gamePrinter = new GamePrinter(this, COLS, ROWS);
         return gamePrinter.toString();
@@ -309,10 +285,6 @@ public class Game {
 	public void eliminateBomb(Bomb bomb) {
 		bomb = null;
 	}
-
-	public int getShipPosX() {
-		return ship.getPosX();
-	}
 	
 	public void eliminateDeadDestroyers() {
 		score += destroyerList.eliminateDeadDestroyers();
@@ -324,13 +296,15 @@ public class Game {
 	
 	public void laserImpact() {
 		if (laser != null) {
-			score += regularList.laserImpact(laser.getPosX(), laser.getPosY(), laser.getHarm());
-			score += destroyerList.laserImpact(laser.getPosX(), laser.getPosY(), laser.getHarm());
-		if(isOvniCreated()) {
-			score += ovni.laserImpact(laser.getPosX(), laser.getPosY(), laser.getHarm());
-			deadOvni();
-			eliminateLaser();
-			ship.setShockWave(true);
+			if(regularList.laserImpact(laser.getPosX(), laser.getPosY(), laser.getHarm())){
+				eliminateLaser();
+			}else if(destroyerList.laserImpact(laser.getPosX(), laser.getPosY(), laser.getHarm())) {
+				eliminateLaser();
+			}
+			else if(isOvniCreated() && ovni.laserImpact(laser.getPosX(), laser.getPosY(), laser.getHarm())) {
+				deadOvni();
+				eliminateLaser();
+				ship.setShockWave(true);
 			}
 		}
 	}
@@ -434,6 +408,9 @@ public class Game {
 
 	
 	
+	public int getShipPosX() {
+		return ship.getPosX();
+	}
 	
 	public int getScore() {
 		return score;
@@ -442,8 +419,7 @@ public class Game {
 	public void setScore(int score) {
 		this.score = score;
 	}
-
-
+	
 	public int getCycleCount() {
 		return cycleCount;
 	}
@@ -460,7 +436,6 @@ public class Game {
 		this.ovni = ovni;
 	}
 
-
 	public UCMShip getShip() {
 		return ship;
 	}
@@ -469,19 +444,46 @@ public class Game {
 		this.ship = ship;
 	}
 	
-	
 	public DestroyerShipList getDestroyerList() {
 		return destroyerList;
 	}
+	
 	public void setDestroyerList(DestroyerShipList destroyerList) {
 		this.destroyerList = destroyerList;
 	}
+	
 	public RegularShipList getRegularList() {
 		return regularList;
 	}
+	
 	public void setRegularList(RegularShipList regularList) {
 		this.regularList = regularList;
 	}
+	
+	public int getShipPosY() {
+		return ship.getPosY();
+	}
+	
+	public void shipMoveLeft() {
+		ship.setPosY(ship.getPosY() - 1);
+	}
+	
+	public void shipMoveRight() {
+		ship.setPosY(ship.getPosY() + 1);
+	}
+	
+	public boolean isShockWaveON() {
+		return ship.isShockWave();
+	}
+
+	public void setShockWave(boolean shockWave) {
+		this.shockWave = shockWave;
+	}
+
+	public void plusPoints(int points) {
+		score += points;
+	}
+	
 	}
 	
 

@@ -21,6 +21,7 @@ public class DestroyerShipList {
 	
 	public void eliminateDestroyerShip(int i) {
 		if (destroyers[i].getLife() == 0){
+		destroyers[i].getGame().plusPoints(destroyers[i].getPoints());
         destroyers[i] = null;
         if (counter > 1) {
             while (i < counter) {
@@ -32,16 +33,16 @@ public class DestroyerShipList {
 		}
     }
 	
-	public int laserImpact(int posXLaser, int posYLaser, int harm){
-		int points = 0;
-		for (int i = 0; i < counter; i++) {
-			if(isDestroyerInPosition(posXLaser, posYLaser)) {
-					destroyers[i].setLife(destroyers[i].getLife() - harm);
-					points = plusPoints(i);
-					eliminateDestroyerShip(i);
-			}
-		}
-		return points;
+	public boolean laserImpact(int posXLaser, int posYLaser, int harm){
+		boolean impact = false;
+		for (int i = 0; !impact && i < counter; i++) {
+            if (destroyers[i].getPosX() == posXLaser && destroyers[i].getPosY() == posYLaser) {
+                impact = true;
+                destroyers[i].setLife(destroyers[i].getLife() - harm);
+                eliminateDestroyerShip(i);
+            }
+        }
+		return impact;
 	}
 	
 	public int getDestroyerLife(int line, int row) {
@@ -65,20 +66,11 @@ public class DestroyerShipList {
         return found;
     }
 	
-	public int plusPoints(int i){
-		int points = 0;
-			if (destroyers[i].getLife() == 0){
-				points  = points + destroyers[i].getPoints();
-			}
-		return points;
-	}
-	
 	public int eliminateDeadDestroyers() {
 		int points = 0;
 		int i = 0;
 		while(i < counter) {
 			if(destroyers[i].getLife() == 0) {
-				points += plusPoints(i);
 				eliminateDestroyerShip(i);
 				}else
 			i++;

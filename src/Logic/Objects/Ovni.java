@@ -47,23 +47,15 @@ public class Ovni {
         return posX == row && posY == col;
     }
 	
-	public int laserImpact(int posXLaser, int posYLaser, int harm){
-		int points = 0;
-			if(isOvniInPosition(posXLaser, posYLaser)) {
+	public boolean laserImpact(int posXLaser, int posYLaser, int harm){
+		boolean impact = false;
+			if (isOvniInPosition(posXLaser, posYLaser)) {
 					life -= harm;
-					points = plusPoints();
+					game.plusPoints(points);
+					impact = true;
 			}
-		return points;
+		return impact;
 	}
-	
-	public int plusPoints(){
-		int points = 0;
-			if (life == 0){
-				points += this.points;
-			}
-		return points;
-	}
-	
 	
 	public int getPosX() {
 		return posX;
