@@ -48,10 +48,6 @@ public class Game {
     	crashes = 0;
     	rand = new Random(System.nanoTime());
     }
-    
-	
-    
-    
 
 	public int getDestroyerLife(int line, int row) {
     	return destroyerList.getDestroyerLife(line, row);
@@ -81,8 +77,6 @@ public class Game {
         return (ship.getPosX() == row && ship.getPosY() == col);
     }
 	
-	
-	
     public void createRegularShips() {
     	int posx = 1;
     	int posy = 3;
@@ -110,8 +104,6 @@ public class Game {
     	}	
     }
     
-    
-    
     public int posyNaveIzquierda() {
     	int acumulador = 8;
     	for (int i = 0; i < regularList.getCounter(); i++) {
@@ -138,37 +130,6 @@ public class Game {
     	return acumulador;
     }
     
-    public int posySideShip(int mod) {
-    	int moreLateralPosition;
-    	if (mod == 0) {
-    		moreLateralPosition = 8;
-        	for (int i = 0; i < destroyerList.getCounter(); i++) {
-        	if(regularList.regulars[i].getPosY() < moreLateralPosition)
-        		moreLateralPosition = regularList.regulars[i].getPosY();
-        	else if(destroyerList.destroyers[i].getPosY() < moreLateralPosition)
-        		moreLateralPosition = destroyerList.destroyers[i].getPosY();
-        	}
-    	} else {
-    		moreLateralPosition = 0;
-        	for (int i = 0; i < TAM_MAX; i++) {
-        	if(regularList.regulars[i].getPosY() > moreLateralPosition)
-        		moreLateralPosition = regularList.regulars[i].getPosY();
-        	else if(destroyerList.destroyers[i].getPosY() > moreLateralPosition)
-        		moreLateralPosition = destroyerList.destroyers[i].getPosY();
-        	}
-    	}
-    	return moreLateralPosition;
-    }
-    
-    
-    // MEJOR HECHO
-    public void crasher() {
-    	if(canMoveToSide(modDirection(),posySideShip(modDirection()))) {
-    		shipCrashing = false;
-    	} else
-    		shipCrashing = true;
-    }
-    
     public void crashing() {
 		if (modLeftSide()) {
 		    if(posibleLeft(posyNaveIzquierda())) {
@@ -186,7 +147,7 @@ public class Game {
 			}
 		}	
     }
-    
+   
     public void update() {
     	
     	if (isLaserShot()) {
@@ -220,8 +181,6 @@ public class Game {
     	laserImpact();
     }
     
-    
-	
 	public boolean modLeftSide() {
     	return (crashes%2 == 0);
     }
@@ -361,8 +320,6 @@ public class Game {
 		return score + i;
 	}
 
-	
-	
 	public boolean canDropBomb(int i) {
 		double x = rand.nextDouble();
         return (destroyerList.destroyers[i].isBomb() == false
@@ -378,8 +335,6 @@ public class Game {
 						destroyerList.destroyers[i].getPosY(), i);
 			}
 		}
-		
-		
 	}
 
 	public boolean shipsToLastRow() {
@@ -406,8 +361,6 @@ public class Game {
 		return (destroyerList.getCounter() == 0 && regularList.getCounter() == 0);
 	}
 
-	
-	
 	public int getShipPosX() {
 		return ship.getPosX();
 	}

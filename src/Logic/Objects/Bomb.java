@@ -38,10 +38,6 @@ public class Bomb {
 	}
 	
 	
-	
-	
-	
-	
 	public int getPosX() {
 		return posX;
 	}
