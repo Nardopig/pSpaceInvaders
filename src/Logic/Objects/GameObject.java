@@ -10,7 +10,9 @@ public abstract class GameObject {
 	private int resistance;
 	
 	
-	public GameObject(){
+	public GameObject(int posX, int posY){
+		this.posX = posX;
+		this.posY = posY;
 		
 	}
 

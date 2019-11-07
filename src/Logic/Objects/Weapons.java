@@ -1,9 +1,21 @@
 package Logic.Objects;
 
-public class Weapons extends GameObject{
+public abstract class Weapons extends GameObject{
 
-	public Weapons(){
-		
+	int harm;
+	
+	public Weapons() {
+		super(2,3);
 		
 	}
+	
+	public int getHarm() {
+		return harm;
+	}
+
+
+	public void setHarm(int harm) {
+		this.harm = harm;
+	}
+	
 }

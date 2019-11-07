@@ -2,12 +2,9 @@ package Logic.Objects;
 
 public abstract class Ships extends GameObject{
 	
-	private int points;
 	
-	public Ships() {
-		
+	public Ships(int posX, int posY) {
+		super(posX,posY);
 	}
-	
-	public abstract void update();
 
 }
