@@ -15,7 +15,7 @@ public class ResetCommand extends Command{
 
 	@Override
 	public boolean execute(Game game) {
-		// TODO Auto-generated method stub
+		//game = new Game(level);
 		return false;
 	}
 

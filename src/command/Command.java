@@ -28,4 +28,12 @@ public abstract class Command {
 	public String helpText(){
 	return details + " : " + help + "\n";
 	}
+	
+	/*public static Command parseCommand(String[ ] commandWords) {
+		
+	}
+	
+	public static String commandHelp() {
+		
+	}*/
 }

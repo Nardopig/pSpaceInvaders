@@ -10,14 +10,13 @@ public class UCMShip {
 	    private boolean shockWave;
 	   
 
-		public UCMShip(Game game) {
+		public UCMShip(Game game, int DIM_X, int DIM_Y) {
 			shockWave = false;
-	    	posX = 7;
-	    	posY = 4;
+			posX = DIM_X;
+			posY = DIM_Y;
 	    }
 		
 		
-
 		public int getPosX() {
 			return posX;
 		}

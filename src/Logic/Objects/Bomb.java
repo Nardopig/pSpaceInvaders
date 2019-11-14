@@ -30,7 +30,7 @@ public class Bomb {
 	}
 	
 	private boolean posibleMove() {
-		return ((posX + 1) < game.ROWS);
+		return ((posX + 1) < game.DIM_Y);
 	}
 
 	public void move(){

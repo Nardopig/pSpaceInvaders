@@ -14,25 +14,28 @@ import Logic.GamePrinter;
 
 public class Game {
 	
+	
 	public DestroyerShipList destroyerList;
     private RegularShipList regularList;
     public BombList bombList; 
     public Ovni ovni;
-    private UCMShip ship;
+    private UCMShip player;
     public UCMShipLaser laser;
     private GamePrinter gamePrinter;
    
-	public final int ROWS = 8;
-    public final int COLS = 9;
+	public final static int DIM_Y = 8;
+    public final static int DIM_X = 9;
     public final int TAM_MAX = 20;
     
-    private int cycleCount;
+    private int currentCycle;
 	private int score;
     public int crashes;
     private Random rand;
     public boolean shipCrashing = false;
     public Level level;
     private boolean shockWave;
+    GameObjectBoard board;
+    private BoardInitializer initializer ;
     
     
 	public Game(Level level) {
@@ -41,13 +44,26 @@ public class Game {
     	regularList = new RegularShipList(8);
     	destroyerList = new  DestroyerShipList(4);
     	bombList = new BombList(4);
-    	ship = new UCMShip(this);
+    	player = new UCMShip(this, DIM_X / 2, DIM_Y - 1);
     	createRegularShips();
         createDestroyerShips();                                   
     	shockWave = false;
     	crashes = 0;
     	rand = new Random(System.nanoTime());
+    	
     }
+	
+	
+	public void initGame () {
+		currentCycle = 0;
+		board = initializer.initialize(this, level);
+		player = new UCMShip(this, DIM_X / 2, DIM_Y - 1);
+		board.add(player);
+		}
+	
+	public void newGame() {
+		new Game(level);
+	}
 
 	public int getDestroyerLife(int line, int row) {
     	return destroyerList.getDestroyerLife(line, row);
@@ -74,7 +90,7 @@ public class Game {
     }
 	
 	public boolean isUCMShipInPosition(int row, int col) {
-        return (ship.getPosX() == row && ship.getPosY() == col);
+        return (player.getPosX() == row && player.getPosY() == col);
     }
 	
     public void createRegularShips() {
@@ -164,7 +180,7 @@ public class Game {
     			}
     		}
     	bombImpact();
-    	if((cycleCount + 1) % level.getSpeed() == 0) {
+    	if((currentCycle + 1) % level.getSpeed() == 0) {
     	crashing();
     	for(int i = 0;i< regularList.getCounter();i++) {
     		regularList.regulars[i].update();
@@ -220,7 +236,7 @@ public class Game {
 	}
 	
 	public String toString() {
-        gamePrinter = new GamePrinter(this, COLS, ROWS);
+        gamePrinter = new GamePrinter(this, DIM_X, DIM_Y);
         return gamePrinter.toString();
     }
 	
@@ -263,7 +279,7 @@ public class Game {
 			else if(isOvniCreated() && ovni.laserImpact(laser.getPosX(), laser.getPosY(), laser.getHarm())) {
 				deadOvni();
 				eliminateLaser();
-				ship.setShockWave(true);
+				player.setShockWave(true);
 			}
 		}
 	}
@@ -280,9 +296,9 @@ public class Game {
 					impact = true;
 			}
 			else if(bombList.bombs[i] != null &&
-					ship.getPosX() == bombList.bombs[i].getPosX() &&
-					ship.getPosY() == bombList.bombs[i].getPosY()) {
-				ship.setLife(ship.getLife() - bombList.bombs[i].getHarm());
+					player.getPosX() == bombList.bombs[i].getPosX() &&
+					player.getPosY() == bombList.bombs[i].getPosY()) {
+				player.setLife(player.getLife() - bombList.bombs[i].getHarm());
 				bombList.eliminateBomb(i);
 				destroyerList.destroyers[i].setBomb(false);
 			}		
@@ -313,7 +329,7 @@ public class Game {
 		if(isOvniCreated()) {
 			deadOvni();
 		}
-		ship.setShockWave(false);
+		player.setShockWave(false);
 	}
 	
 	public int addPoints(int i) {
@@ -340,12 +356,12 @@ public class Game {
 	public boolean shipsToLastRow() {
 		boolean finish = false;
 		for(int i = 0; !finish && i < regularList.getCounter();i++){
-			if(regularList.regulars[i].getPosX() == ship.getPosX()){
+			if(regularList.regulars[i].getPosX() == player.getPosX()){
 			finish = true;
 			}
 		}
 		for(int i = 0; !finish && i < destroyerList.getCounter();i++){
-			if(destroyerList.destroyers[i].getPosX() == ship.getPosX()){
+			if(destroyerList.destroyers[i].getPosX() == player.getPosX()){
 				finish = true;
 			}
 		}
@@ -354,7 +370,7 @@ public class Game {
 	
 	
 	public boolean loseGame() {
-		return (ship.getLife() == 0 || shipsToLastRow());
+		return (player.getLife() == 0 || shipsToLastRow());
 	}
 	
 	public boolean winGame(){
@@ -362,7 +378,7 @@ public class Game {
 	}
 
 	public int getShipPosX() {
-		return ship.getPosX();
+		return player.getPosX();
 	}
 	
 	public int getScore() {
@@ -374,11 +390,11 @@ public class Game {
 	}
 	
 	public int getCycleCount() {
-		return cycleCount;
+		return currentCycle;
 	}
 
 	public void setCycleCount(int cycleCount) {
-		this.cycleCount = cycleCount;
+		this.currentCycle = cycleCount;
 	}
     
     public Ovni getOvni() {
@@ -390,11 +406,11 @@ public class Game {
 	}
 
 	public UCMShip getShip() {
-		return ship;
+		return player;
 	}
 
 	public void setShip(UCMShip ship) {
-		this.ship = ship;
+		this.player = ship;
 	}
 	
 	public DestroyerShipList getDestroyerList() {
@@ -414,19 +430,19 @@ public class Game {
 	}
 	
 	public int getShipPosY() {
-		return ship.getPosY();
+		return player.getPosY();
 	}
 	
 	public void shipMoveLeft() {
-		ship.setPosY(ship.getPosY() - 1);
+		player.setPosY(player.getPosY() - 1);
 	}
 	
 	public void shipMoveRight() {
-		ship.setPosY(ship.getPosY() + 1);
+		player.setPosY(player.getPosY() + 1);
 	}
 	
 	public boolean isShockWaveON() {
-		return ship.isShockWave();
+		return player.isShockWave();
 	}
 
 	public void setShockWave(boolean shockWave) {
