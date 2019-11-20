@@ -21,7 +21,11 @@ public class ShockwaveCommand extends Command{
 
 	@Override
 	public Command parse(String[] commandWords) {
-		// TODO Auto-generated method stub
-		return null;
+		if(commandWords.equals(name) || commandWords.equals(shortcut)) {
+			return this;
+		}
+		else {
+			return null;
+		}
 	}
 }

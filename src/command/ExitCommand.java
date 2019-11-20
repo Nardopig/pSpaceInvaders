@@ -1,6 +1,8 @@
 package command;
 
+import command.Command;
 import Logic.Game;
+import control.Controller;
 
 public class ExitCommand extends Command{
 
@@ -15,13 +17,17 @@ public class ExitCommand extends Command{
 
 	@Override
 	public boolean execute(Game game) {
-		// TODO Auto-generated method stub
+		game.exit();
 		return false;
 	}
 
 	@Override
 	public Command parse(String[] commandWords) {
-		// TODO Auto-generated method stub
-		return null;
+		if (matchCommandName(commandWords[0])) {
+			return this;
+		}else {
+			return null;
+		}
 	}
 }
+

@@ -15,13 +15,20 @@ public class ListCommand extends Command{
 
 	@Override
 	public boolean execute(Game game) {
-		// TODO Auto-generated method stub
+		System.out.println("[R]egular ship: Points: 5 - Harm: 0 - Shield: 2\r\n" + 
+				"[D]estroyer ship: Points: 10 - Harm: 1 - Shield: 1\r\n" + 
+				"[O]vni: Points: 25 - Harm: 0 - Shield: 1\r\n" + 
+				"^__^: Harm: 1 - Shield: 3");
 		return false;
 	}
 
 	@Override
 	public Command parse(String[] commandWords) {
-		// TODO Auto-generated method stub
-		return null;
+		if(commandWords.equals(name) || commandWords.equals(shortcut)) {
+			return this;
+		}
+		else {
+			return null;
+		}
 	}
 }

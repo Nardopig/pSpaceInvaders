@@ -7,6 +7,7 @@ import Logic.Lists.DestroyerShipList;
 import Logic.Lists.RegularShipList;
 import Logic.Objects.Bomb;
 import Logic.Objects.DestroyerShip;
+import Logic.Objects.GameObject;
 import Logic.Objects.Ovni;
 import Logic.Objects.UCMShip;
 import Logic.Objects.UCMShipLaser;
@@ -36,6 +37,7 @@ public class Game {
     private boolean shockWave;
     GameObjectBoard board;
     private BoardInitializer initializer ;
+    private boolean doExit = false;
     
     
 	public Game(Level level) {
@@ -53,6 +55,19 @@ public class Game {
     	
     }
 	
+	public void addObject(GameObject object) {
+		board.add(object);
+		}
+	
+	public void update() {
+		board.computerAction();
+		board.update();
+		currentCycle += 1;
+		}
+	
+	public void exit() {
+		doExit = true;
+		}
 	
 	public void initGame () {
 		currentCycle = 0;
@@ -164,7 +179,7 @@ public class Game {
 		}	
     }
    
-    public void update() {
+    /*public void update() {
     	
     	if (isLaserShot()) {
     	laser.update();
@@ -195,7 +210,7 @@ public class Game {
  
     	if (isLaserShot())
     	laserImpact();
-    }
+    }*/
     
 	public boolean modLeftSide() {
     	return (crashes%2 == 0);

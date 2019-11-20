@@ -15,13 +15,17 @@ public class UpdateCommand extends Command{
 
 	@Override
 	public boolean execute(Game game) {
-		// TODO Auto-generated method stub
+		game.update();
 		return false;
 	}
 
 	@Override
 	public Command parse(String[] commandWords) {
-		// TODO Auto-generated method stub
-		return null;
+		if(commandWords.equals(name) || commandWords.equals(shortcut)) {
+			return this;
+		}
+		else {
+			return null;
+		}
 	}
 }

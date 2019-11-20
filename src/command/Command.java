@@ -21,19 +21,14 @@ public abstract class Command {
 	
 	public abstract boolean execute(Game game);
 	public abstract Command parse(String[] commandWords);
+	
 	protected boolean matchCommandName(String name) {
 	return this.shortcut.equalsIgnoreCase(name) ||
 	this.name.equalsIgnoreCase(name);
 	}
+	
 	public String helpText(){
 	return details + " : " + help + "\n";
 	}
 	
-	/*public static Command parseCommand(String[ ] commandWords) {
-		
-	}
-	
-	public static String commandHelp() {
-		
-	}*/
 }

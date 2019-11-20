@@ -2,7 +2,7 @@ package Logic.Objects;
 
 import Logic.Game;
 
-public class UCMShip {
+public class UCMShip extends Ships{
 	 	private int posX;
 	    private int posY;
 	    private int life = 3;
