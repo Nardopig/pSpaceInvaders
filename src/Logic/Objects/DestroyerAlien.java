@@ -2,7 +2,7 @@ package Logic.Objects;
 
 import Logic.Game;
 
-public class DestroyerShip {
+public class DestroyerAlien extends AlienShip{
 	private int posX;
 	private int posY;
 	private int life = 1;
@@ -15,7 +15,8 @@ public class DestroyerShip {
 	
     
 
-	public DestroyerShip(Game game, int posX, int posY) {
+	public DestroyerAlien(Game game, int posX, int posY) {
+		super(posX,posY,points);
     	bomb = false;
     	this.game = game;
     	this.posX = posX;

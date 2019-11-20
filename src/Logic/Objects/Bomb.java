@@ -2,7 +2,7 @@ package Logic.Objects;
 
 import Logic.Game;
 
-public class Bomb {
+public class Bomb extends Weapon{
 
 	private int posX;
 	private int posY;
@@ -13,6 +13,7 @@ public class Bomb {
 	
 	
 	public Bomb(Game game, int posX, int posY) {
+		super(posX,posY);
 		this.posX = posX;
 		this.posY = posY;
 		harm = 1;

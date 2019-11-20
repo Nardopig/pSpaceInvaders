@@ -21,7 +21,7 @@ public class ShootCommand extends Command{
 
 	@Override
 	public Command parse(String[] commandWords) {
-		if(commandWords.equals(name) || commandWords.equals(shortcut)) {
+		if(matchCommandName(commandWords[0])) {
 			return this;
 		}
 		else {

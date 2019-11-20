@@ -6,11 +6,11 @@ import Logic.Lists.BombList;
 import Logic.Lists.DestroyerShipList;
 import Logic.Lists.RegularShipList;
 import Logic.Objects.Bomb;
-import Logic.Objects.DestroyerShip;
+import Logic.Objects.DestroyerAlien;
 import Logic.Objects.GameObject;
 import Logic.Objects.Ovni;
 import Logic.Objects.UCMShip;
-import Logic.Objects.UCMShipLaser;
+import Logic.Objects.UCMMissile;
 import Logic.GamePrinter;
 
 public class Game {
@@ -21,7 +21,7 @@ public class Game {
     public BombList bombList; 
     public Ovni ovni;
     private UCMShip player;
-    public UCMShipLaser laser;
+    public UCMMissile laser;
     private GamePrinter gamePrinter;
    
 	public final static int DIM_Y = 8;
@@ -321,7 +321,7 @@ public class Game {
 	}
 
 	public void shootLaser() {
-		laser = new UCMShipLaser(this);
+		laser = new UCMMissile(this);
 	}
 	
 	public boolean isLaserShot() {

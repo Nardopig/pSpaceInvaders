@@ -1,11 +1,11 @@
 package Logic.Objects;
 
-public abstract class Weapons extends GameObject{
+public abstract class Weapon extends GameObject{
 
 	int harm;
 	
-	public Weapons() {
-		super(2,3);
+	public Weapon(int posX, int posY) {
+		super(posX,posY);
 		
 	}
 	

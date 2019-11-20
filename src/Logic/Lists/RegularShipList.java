@@ -1,16 +1,16 @@
 package Logic.Lists;
 
 import Logic.Game;
-import Logic.Objects.DestroyerShip;
-import Logic.Objects.RegularShip;
+import Logic.Objects.DestroyerAlien;
+import Logic.Objects.RegularAlien;
 
 public class RegularShipList {
-	public RegularShip[] regulars;
+	public RegularAlien[] regulars;
 	private int counter;
 
 
 	public RegularShipList(int tam) {
-		regulars = new RegularShip[tam];
+		regulars = new RegularAlien[tam];
 		counter = 0;
 	}
 	
@@ -22,13 +22,13 @@ public class RegularShipList {
 		this.counter = counter;
 	}
 	
-	public void addRegularShip(RegularShip regularShip) {
+	public void addRegularShip(RegularAlien regularShip) {
         regulars[counter] = regularShip;
         counter++;
     }
 	
 	public void addRegularShip(Game game, int posX, int posY) {
-        regulars[counter] = new RegularShip(game, posX, posY);
+        regulars[counter] = new RegularAlien(game, posX, posY);
         counter++;
     }
 	

@@ -3,7 +3,7 @@ package Logic.Objects;
 import Logic.Game;
 import Logic.Lists.RegularShipList;
 
-public class RegularShip {
+public class RegularAlien extends AlienShip{
 	 	private int posX;
 	 	private int posY;
 	 	private int life = 2;
@@ -12,7 +12,8 @@ public class RegularShip {
 	    private Game game;
 	    
 	    
-	public RegularShip(Game game, int posX, int posY) {
+	public RegularAlien(Game game, int posX, int posY) {
+		super(posX,posY,points);
 		this.game = game;
 		this.posX = posX;
 		this.posY = posY;
@@ -31,10 +32,7 @@ public class RegularShip {
     		posY++;
     	}
     }
-	
-	
-	
-	
+
 
 	public int getPosX() {
 		return posX;

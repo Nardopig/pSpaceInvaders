@@ -2,7 +2,7 @@ package Logic.Objects;
 
 import Logic.Game;
 
-public class UCMShipLaser {
+public class UCMMissile extends Weapon{
 
 	private int harm;
 	private int posX;
@@ -10,8 +10,8 @@ public class UCMShipLaser {
 	private Game game;
 	private boolean shot;
 	
-	public UCMShipLaser(Game game){
-		this.game = game;
+	public UCMMissile(){
+		super(posX,posY);
 		this.posX = game.getShipPosX();
 		this.posY = game.getShipPosY();
 		harm = 1;

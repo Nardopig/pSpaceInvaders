@@ -1,6 +1,6 @@
 package command;
 
-import Commands.Command;
+import command.Command;
 import Logic.Game;
 import control.Controller;
 
@@ -19,18 +19,16 @@ public class MoveCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) {
-		
+	
 	}
 
 	@Override
-	public Command parse(String[] commandWords) {
-		if(matchCommandName(commandWords[0]))
-		{
+	public Command parse(String[] commandWords){
+		if(matchCommandName(commandWords[0])){
 			direction = commandWords[1];
 			movements = Integer.parseInt(commandWords[2]);
 			if((direction.equalsIgnoreCase("left") || direction.equalsIgnoreCase("right")) 
-					&& 0 < movements && movements <= 2)
-					{
+					&& 0 < movements && movements <= 2){
 				return this;
 			}
 			else

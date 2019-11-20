@@ -23,11 +23,11 @@ public class HelpCommand extends Command{
 
 	@Override
 	public Command parse(String[] commandWords) {
-			if(commandWords.equals(name) || commandWords.equals(shortcut)) {
-				return this;
-			}
-			else {
-				return null;
+		if(matchCommandName(commandWords[0])) {
+			return this;
+		}
+		else {
+			return null;
 			}
 		}
 	}

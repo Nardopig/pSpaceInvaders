@@ -1,8 +1,6 @@
 package Logic.Objects;
 
-import Logic.Game;
-
-public class UCMShip extends Ships{
+public class UCMShip extends Ship{
 	 	private int posX;
 	    private int posY;
 	    private int life = 3;
@@ -10,7 +8,8 @@ public class UCMShip extends Ships{
 	    private boolean shockWave;
 	   
 
-		public UCMShip(Game game, int DIM_X, int DIM_Y) {
+		public UCMShip(int DIM_X, int DIM_Y) {
+			super(DIM_X,DIM_Y);
 			shockWave = false;
 			posX = DIM_X;
 			posY = DIM_Y;

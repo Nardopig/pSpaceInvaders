@@ -4,9 +4,9 @@ import java.util.Random;
 
 import Logic.*;
 
-public class Ovni {
-	private int posX;
-    private int posY;
+public class Ovni extends EnemyShip{
+	private int posX = 0;
+    private int posY = 9;
     private int life = 1;
     private final int damage = 0;
     private final int points = 25;
@@ -14,8 +14,7 @@ public class Ovni {
     
     
     public Ovni(Game game) {
-    	posX = 0;
-    	posY = 9;
+    	super(posX,posY,points);
 		this.game = game;
     }
         

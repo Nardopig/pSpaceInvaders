@@ -1,21 +1,21 @@
 package Logic.Lists;
 
 import Logic.Game;
-import Logic.Objects.DestroyerShip;
+import Logic.Objects.DestroyerAlien;
 
 public class DestroyerShipList {
-	public DestroyerShip[] destroyers;
+	public DestroyerAlien[] destroyers;
 	private int counter;
 	
 	
 
 	public DestroyerShipList(int tam) {
-		destroyers = new DestroyerShip[tam];
+		destroyers = new DestroyerAlien[tam];
 		counter = 0;
 	}
 	
 	public void addDestroyerShip(Game game, int posX, int posY) {
-        destroyers[counter] = new DestroyerShip(game, posX, posY);
+        destroyers[counter] = new DestroyerAlien(game, posX, posY);
         counter++;
     }
 	
