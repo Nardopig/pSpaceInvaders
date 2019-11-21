@@ -5,6 +5,7 @@ import java.util.Random;
 import Logic.Lists.BombList;
 import Logic.Lists.DestroyerShipList;
 import Logic.Lists.RegularShipList;
+import Logic.Objects.AlienShip;
 import Logic.Objects.Bomb;
 import Logic.Objects.DestroyerAlien;
 import Logic.Objects.GameObject;
@@ -15,35 +16,45 @@ import Logic.GamePrinter;
 
 public class Game {
 	
+	public final static int DIM_Y = 8;
+    public final static int DIM_X = 9;
+          
+    private int currentCycle;
+    private Random rand;
+    public Level level;
+    
+    GameObjectBoard board;
+    
+    private UCMShip player;
+    
+    private boolean doExit = false;
+    private BoardInitializer initializer;
 	
-	public DestroyerShipList destroyerList;
+    
+    /*
+    public DestroyerShipList destroyerList;
     private RegularShipList regularList;
     public BombList bombList; 
     public Ovni ovni;
-    private UCMShip player;
     public UCMMissile laser;
     private GamePrinter gamePrinter;
-   
-	public final static int DIM_Y = 8;
-    public final static int DIM_X = 9;
     public final int TAM_MAX = 20;
-    
-    private int currentCycle;
-	private int score;
+    private int score;
     public int crashes;
-    private Random rand;
     public boolean shipCrashing = false;
-    public Level level;
     private boolean shockWave;
-    GameObjectBoard board;
-    private BoardInitializer initializer ;
-    private boolean doExit = false;
+    */
+    
     
     
 	public Game(Level level) {
 		
 		this.level = level;
-    	regularList = new RegularShipList(8);
+		this.rand = rand;
+		initializer = new BoardInitializer();
+		initGame();
+    	/*
+		regularList = new RegularShipList(8);
     	destroyerList = new  DestroyerShipList(4);
     	bombList = new BombList(4);
     	player = new UCMShip(this, DIM_X / 2, DIM_Y - 1);
@@ -52,29 +63,82 @@ public class Game {
     	shockWave = false;
     	crashes = 0;
     	rand = new Random(System.nanoTime());
-    	
+    	*/
     }
-	
-	public void addObject(GameObject object) {
-		board.add(object);
-		}
-	
-	public void update() {
-		board.computerAction();
-		board.update();
-		currentCycle += 1;
-		}
-	
-	public void exit() {
-		doExit = true;
-		}
 	
 	public void initGame () {
 		currentCycle = 0;
 		board = initializer.initialize(this, level);
 		player = new UCMShip(this, DIM_X / 2, DIM_Y - 1);
 		board.add(player);
+	}
+	
+	public Random getRand() {
+		return rand;
+	}
+
+	public Level getLevel() {
+		return level;
+	}
+	
+	public void reset() {
+		initGame();
+	}
+	
+	public void addObject(GameObject object) {
+		board.add(object);
+	}
+	
+	public String positionToString(int ROWS, int COLS) {
+		return board.toString(ROWS, COLS);
+	}
+	
+	public boolean isFinished() {
+		return playerWin() || aliensWin() || doExit;
+	}
+	
+	public boolean aliensWin() {
+		return !player.isAlive() || AlienShip.haveLanded();
+	}
+	
+	private boolean playerWin () {
+		return AlienShip.allDead();
+	}
+
+	public void update() {
+		board.computerAction();
+		board.update();
+		currentCycle += 1;
 		}
+	
+	public boolean isOnBoard(int ROW, int COLS) {
+		return /*condicion de rango sobre las coordenadas */ ;
+	}
+	
+	public void exit() {
+		doExit = true;
+		}
+	
+	public String infoToString() {
+		return /*cadena estado−juego para imprimir junto con el tablero */;
+	}
+	public String getWinnerMessage () {
+		if (playerWin()) return "Player win!";
+		else if (aliensWin()) return "Aliens win!";
+		else if (doExit) return "Player exits the game";
+		else return "This should not happen";
+	}
+	// TODO implementar los metodos del interfaz IPlayerController
+
+	
+	
+	
+	
+	
+	
+	
+	
+//--------------------------------------------------------------------------------------------------------------------------------
 	
 	public void newGame() {
 		new Game(level);
@@ -262,10 +326,6 @@ public class Game {
 	public void deadOvni() {
 		if(ovni.getLife() < 1)
 			ovni = null;
-	}
-	
-	public void ovniDisappear() {
-		ovni = null;
 	}
 	
 	public void eliminateLaser() {
@@ -466,6 +526,10 @@ public class Game {
 
 	public void plusPoints(int points) {
 		score += points;
+	}
+	
+	public void setRand(Random rand) {
+		this.rand = rand;
 	}
 	
 	}

@@ -1,41 +1,71 @@
 package Logic;
 
 import Logic.Objects.GameObject;
+import Logic.Objects.RegularAlien;
 import Logic.Objects.UCMShip;
 
 public class GameObjectBoard {
 	
-	public GameObjectBoard(int ROWS, int COLS) {
-		
+	private GameObject[] objects;
+	private int currentObjects;
+	
+	
+	public GameObjectBoard (int width, int height) {
+	// TODO implement
 	}
+	
 	private int getCurrentObjects () {
 	// TODO implement
 	}
+	
 	public void add (GameObject object) {
+		objects[currentObjects] = object.autoInstance();
+		currentObjects++;
 	}
-	private GameObject getObjectInPosition (int ROWS, int COLS) {
+	
+	public void addRegularShip(Game game, int posX, int posY) {
+        regulars[counter] = new RegularAlien(game, posX, posY);
+        counter++;
+    }
+	
+	private GameObject getObjectInPosition ( /*coordinadas */ ) {
 	// TODO implement
 	}
-	private int getIndex(int ROWS, int COLS) {
+	
+	private int getIndex( /* coordinadas */ ) {
 	// TODO implement
 	}
-	// si vuestra solucion requiere que sea public, se puede cambiar 
-	private void remove (GameObject object) {
-	// TODO implement
+	
+	/*si vuestra solucion requiere que sea public, se puede cambiar */
+	public void remove (GameObject object) {
+		object = null;
 	}
+	
 	public void update() {
 	// TODO implement
 	}
+	
 	private void checkAttacks(GameObject object) {
 	// TODO implement
 	}
+	
 	public void computerAction() {
 	// TODO implement
 	}
+	
 	private void removeDead() {
-	// TODO implement
+		for(int i = 0; i < currentObjects;i++) {
+			if(objects[i].getResistance() == 0) {
+				remove(objects[i]);
+				for(int j = i; j < currentObjects;j++) {
+					objects[j] = objects[j + 1];
+				}
+				currentObjects--;
+			}
+		}
 	}
-	public String toString(int ROWS, int COLS) {
+	
+	public String toString( /*coordinadas */ ) {
 	// TODO implement
 	}
 

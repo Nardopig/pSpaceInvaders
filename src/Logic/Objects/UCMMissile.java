@@ -7,7 +7,6 @@ public class UCMMissile extends Weapon{
 	private int harm;
 	private int posX;
 	private int posY;
-	private Game game;
 	private boolean shot;
 	
 	public UCMMissile(){

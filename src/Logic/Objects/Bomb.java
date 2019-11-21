@@ -6,7 +6,6 @@ public class Bomb extends Weapon{
 
 	private int posX;
 	private int posY;
-	private Game game;
 	private boolean active;
 	private int harm;
 	private int points = 0;
@@ -19,6 +18,11 @@ public class Bomb extends Weapon{
 		harm = 1;
 		this.game = game;
 		
+	}
+	
+	public GameObject autoInstance() {
+		Bomb bomb = new Bomb(game,posX,posY);
+		return bomb;
 	}
 	
 	public boolean update(){

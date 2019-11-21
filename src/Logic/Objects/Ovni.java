@@ -5,24 +5,23 @@ import java.util.Random;
 import Logic.*;
 
 public class Ovni extends EnemyShip{
-	private int posX = 0;
-    private int posY = 9;
+	private static int posX = 0;
+    private static int posY = 9;
     private int life = 1;
     private final int damage = 0;
-    private final int points = 25;
-    private Game game;
+    private final static int points = 25;
+    private GameObjectBoard board;
     
     
     public Ovni(Game game) {
     	super(posX,posY,points);
-		this.game = game;
     }
         
     public void update() {
 		if (posibleMove()) {
 			move();
 		}else {
-			game.ovniDisappear();
+			board.remove(this);
 		}
     }
     
@@ -37,10 +36,6 @@ public class Ovni extends EnemyShip{
     public boolean posibleMove() {
     	return posY - 1 >= 0;
     }
-    
-	public boolean ovniDentro() {
-		return posY < 9 && posY >= 0;
-	}
 
 	public boolean isOvniInPosition(int row, int col) {
         return posX == row && posY == col;

@@ -5,18 +5,17 @@ import Logic.Game;
 public class DestroyerAlien extends AlienShip{
 	private int posX;
 	private int posY;
-	private int life = 1;
+	private static int resistance = 1;
 	private final int damage = 1;
-	private final int points = 10;
+	private static int points = 10;
 	private int crashes;
 	private boolean bomb;
-	private Game game;
     
 	
     
 
 	public DestroyerAlien(Game game, int posX, int posY) {
-		super(posX,posY,points);
+		super(game,posX,posY,resistance,points);
     	bomb = false;
     	this.game = game;
     	this.posX = posX;
@@ -38,10 +37,6 @@ public class DestroyerAlien extends AlienShip{
     }
 	
 	
-	
-	
-	
-	
 	public int getPosX() {
 		return posX;
 	}
@@ -59,11 +54,11 @@ public class DestroyerAlien extends AlienShip{
 	}
 
 	public int getLife() {
-		return life;
+		return resistance;
 	}
 
 	public void setLife(int life) {
-		this.life = life;
+		this.resistance = life;
 	}
 
 	public boolean isBomb() {

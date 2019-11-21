@@ -64,8 +64,5 @@ public enum Level {
 	public void setOvniFrequency(double ovniFrequency) {
 		this.ovniFrequency = ovniFrequency;
 	}
-	
-	
-	
-	
+
 }

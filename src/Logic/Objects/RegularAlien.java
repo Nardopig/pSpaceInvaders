@@ -9,12 +9,10 @@ public class RegularAlien extends AlienShip{
 	 	private int life = 2;
 	 	private final int damage = 0;
 	 	private final int points = 5;
-	    private Game game;
 	    
 	    
 	public RegularAlien(Game game, int posX, int posY) {
 		super(posX,posY,points);
-		this.game = game;
 		this.posX = posX;
 		this.posY = posY;
 	}

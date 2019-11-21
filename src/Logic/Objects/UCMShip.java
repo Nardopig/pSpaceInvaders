@@ -1,15 +1,17 @@
 package Logic.Objects;
 
+import Logic.Game;
+
 public class UCMShip extends Ship{
 	 	private int posX;
 	    private int posY;
-	    private int life = 3;
+	    private static int resistance = 3;
 	    private final int damage = 1;
 	    private boolean shockWave;
 	   
 
-		public UCMShip(int DIM_X, int DIM_Y) {
-			super(DIM_X,DIM_Y);
+		public UCMShip(Game game,int DIM_X, int DIM_Y) {
+			super(game,DIM_X,DIM_Y,resistance);
 			shockWave = false;
 			posX = DIM_X;
 			posY = DIM_Y;
@@ -33,11 +35,11 @@ public class UCMShip extends Ship{
 		}
 
 		public int getLife() {
-			return life;
+			return resistance;
 		}
 
 		public void setLife(int life) {
-			this.life = life;
+			this.resistance = life;
 		}
 
 		public int getDamage() {
