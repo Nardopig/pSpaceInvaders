@@ -4,51 +4,61 @@ import java.util.Random;
 
 import Logic.*;
 
-public class Ovni extends EnemyShip{
-	private static int posX = 0;
-    private static int posY = 9;
-    private int life = 1;
-    private final int damage = 0;
+public class Ovni extends EnemyShip implements IExecuteRandomActions{
+	private static int posX = 8;
+    private static int posY = 0;
+    private static int resistance = 1;
     private final static int points = 25;
     private GameObjectBoard board;
+    private boolean enable = false;
     
     
     public Ovni(Game game) {
-    	super(posX,posY,points);
+    	super(game,posX,posY,resistance,points);
     }
         
     public void update() {
-		if (posibleMove()) {
-			move();
-		}else {
-			board.remove(this);
-		}
+		computerAction();
     }
     
     public void move() {
-    	if (posibleMove()) {
-    	posY--;	
-     }else {
-    	 
-     }
+    	posX--;	
     }
     
-    public boolean posibleMove() {
-    	return posY - 1 >= 0;
-    }
-
-	public boolean isOvniInPosition(int row, int col) {
-        return posX == row && posY == col;
-    }
-	
-	public boolean laserImpact(int posXLaser, int posYLaser, int harm){
-		boolean impact = false;
-			if (isOvniInPosition(posXLaser, posYLaser)) {
-					life -= harm;
-					game.plusPoints(points);
-					impact = true;
+	@Override
+	public void computerAction() {
+		if (enable) {
+			move();
+			if(isOut())
+				onDelete();
+		}else {
+			if(IExecuteRandomActions.canGenerateRandomOvni(game)) {
+				enable = true;
+			    posX = 8;
 			}
-		return impact;
+		}	
+	}
+	
+
+	@Override
+	public void onDelete() {
+		if(resistance == 0) {
+			enable = false;
+			plusPoints();
+		}else
+			enable = false;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GameObject autoInstance() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	public int getPosX() {
@@ -68,11 +78,11 @@ public class Ovni extends EnemyShip{
 	}
 
 	public int getLife() {
-		return life;
+		return resistance;
 	}
 	
 	public void setLife(int life) {
-		this.life = life;
+		this.resistance = life;
 	}
 
 	public Game getGame() {
@@ -83,12 +93,7 @@ public class Ovni extends EnemyShip{
 		this.game = game;
 	}
 
-	public int getDamage() {
-		return damage;
-	}
-
 	public int getPoints() {
 		return points;
 	}
-	
 }

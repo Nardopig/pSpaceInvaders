@@ -7,15 +7,14 @@ public class Bomb extends Weapon{
 	private int posX;
 	private int posY;
 	private boolean active;
-	private int harm;
+	private static int harm = 1;
 	private int points = 0;
 	
 	
 	public Bomb(Game game, int posX, int posY) {
-		super(posX,posY);
+		super(game,posX,posY,harm);
 		this.posX = posX;
 		this.posY = posY;
-		harm = 1;
 		this.game = game;
 		
 	}

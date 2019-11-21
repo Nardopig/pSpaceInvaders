@@ -4,9 +4,9 @@ import Logic.Game;
 
 public abstract class Weapon extends GameObject{
 
-	int harm;
+	static int resistance;
 	
-	public Weapon(Game game,int posX, int posY, int resistance) {
+	public Weapon(Game game,int posX, int posY, int harm) {
 		super(game,posX,posY, resistance);
 	}
 	

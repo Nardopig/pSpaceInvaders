@@ -10,6 +10,4 @@ public abstract class AlienShip extends EnemyShip{
 		super(game,posX,posY,resistance,points);
 	}
 
-
-
 }

@@ -23,7 +23,7 @@ public class Game {
     private Random rand;
     public Level level;
     
-    GameObjectBoard board;
+    private GameObjectBoard board;
     
     private UCMShip player;
     
@@ -73,6 +73,10 @@ public class Game {
 		board.add(player);
 	}
 	
+	public GameObjectBoard getBoard() {
+		return board;
+	}
+	
 	public Random getRand() {
 		return rand;
 	}
@@ -111,8 +115,8 @@ public class Game {
 		currentCycle += 1;
 		}
 	
-	public boolean isOnBoard(int ROW, int COLS) {
-		return /*condicion de rango sobre las coordenadas */ ;
+	public boolean isOnBoard(int posX, int posY) {
+		return posX > 0 && posX < DIM_X && posY > 0 && posY < DIM_Y;
 	}
 	
 	public void exit() {
@@ -531,6 +535,8 @@ public class Game {
 	public void setRand(Random rand) {
 		this.rand = rand;
 	}
+
+	
 	
 	}
 	

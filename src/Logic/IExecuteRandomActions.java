@@ -9,5 +9,5 @@ public interface IExecuteRandomActions {
 	static boolean canGenerateRandomBomb(Game game){
 		return game.getRand().nextDouble() < game.getLevel().getBombFrequency();
 	}
-
+	
 }
