@@ -46,7 +46,7 @@ public class GameObjectBoard {
 	}
 	
 	private void checkAttacks(GameObject object) {
-	// TODO implement
+	
 	}
 	
 	public void computerAction() {

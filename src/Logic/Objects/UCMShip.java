@@ -3,20 +3,19 @@ package Logic.Objects;
 import Logic.Game;
 
 public class UCMShip extends Ship{
-	 	private int posX;
-	    private int posY;
+	 	private static int posX = 3;
+	    private static int posY = 7;
 	    private static int resistance = 3;
 	    private final int damage = 1;
 	    private boolean shockWave;
+	    private boolean missile;
+	    private static Game game;
 	   
 
-		public UCMShip(Game game,int DIM_X, int DIM_Y) {
-			super(game,DIM_X,DIM_Y,resistance);
+		public UCMShip() {
+			super(game,posX,posY,resistance);
 			shockWave = false;
-			posX = DIM_X;
-			posY = DIM_Y;
 	    }
-		
 		
 		public int getPosX() {
 			return posX;
@@ -52,6 +51,47 @@ public class UCMShip extends Ship{
 
 		public void setShockWave(boolean shockWave) {
 			this.shockWave = shockWave;
+		}
+		
+		public boolean receiveBombAttack(int damage) {
+			getDamage(damage);
+			return true;
+		}
+
+
+		@Override
+		public void computerAction() {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		@Override
+		public void onDelete() {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		@Override
+		public void move() {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		@Override
+		public String toString() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public boolean isMissile() {
+			return missile;
+		}
+
+		public void setMissile(boolean missile) {
+			this.missile = missile;
 		}
 	    
 }

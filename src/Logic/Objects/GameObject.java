@@ -8,7 +8,6 @@ public abstract class GameObject implements IAttack {
 protected int posX,posY;
 protected int resistance;
 protected Game game;
-IAttack attack;
 
 	public GameObject(Game game,int posX,int posY, int resistance) {
 		this.posX = posX;
@@ -17,8 +16,10 @@ IAttack attack;
 		this.resistance = resistance;
 		
 	}
-
 	
+	public void autoInstance() {
+		GameObject object = new GameObject(game,posX,posY,resistance);
+	}
 	/*métodos que devuelven el valor de las coordinadas */
 	
 	
@@ -47,12 +48,6 @@ IAttack attack;
 		return !game.isOnBoard(posX,posY);
 	}
 	
-	public void proyectileImpact(int posX, int posY){	
-		if (isOnPosition(posX, posY)) {
-			getDamage();
-			onDelete();
-		}
-	}
 	
 	public abstract void computerAction();
 	public abstract void onDelete();

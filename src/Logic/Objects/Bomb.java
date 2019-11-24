@@ -19,6 +19,17 @@ public class Bomb extends Weapon{
 		
 	}
 	
+	public boolean performAttack(GameObject other){
+		if(other.isOnPosition(posX, posY)) {
+			if(other.receiveBombAttack(harm))
+				return true;
+			else 
+				return false;
+		}
+		else
+			return false;
+	}
+	
 	public GameObject autoInstance() {
 		Bomb bomb = new Bomb(game,posX,posY);
 		return bomb;
@@ -81,12 +92,5 @@ public class Bomb extends Weapon{
 	public void setHarm(int harm) {
 		this.harm = harm;
 	}
-	
-
-	
-
-	
-
-	
 
 }

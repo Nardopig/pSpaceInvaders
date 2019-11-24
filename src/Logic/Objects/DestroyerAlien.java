@@ -1,6 +1,7 @@
 package Logic.Objects;
 
 import Logic.Game;
+import Logic.IExecuteRandomActions;
 
 public class DestroyerAlien extends AlienShip{
 	private int posX;
@@ -35,6 +36,21 @@ public class DestroyerAlien extends AlienShip{
     		posY++;
     	}
     }
+	
+	public void dropBomb() {
+		
+		
+		
+		
+	}
+	
+	public void dropBomb() {
+		if(!bomb && IExecuteRandomActions.canGenerateRandomBomb(game)) {
+			bomb = true;
+			bombList.addBomb(this, destroyerList.destroyers[i].getPosX(),
+					destroyerList.destroyers[i].getPosY(), i);
+		}
+	}
 	
 	
 	public int getPosX() {

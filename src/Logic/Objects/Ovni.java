@@ -9,7 +9,6 @@ public class Ovni extends EnemyShip implements IExecuteRandomActions{
     private static int posY = 0;
     private static int resistance = 1;
     private final static int points = 25;
-    private GameObjectBoard board;
     private boolean enable = false;
     
     
@@ -19,6 +18,7 @@ public class Ovni extends EnemyShip implements IExecuteRandomActions{
         
     public void update() {
 		computerAction();
+		performAttack(null);
     }
     
     public void move() {
@@ -31,34 +31,25 @@ public class Ovni extends EnemyShip implements IExecuteRandomActions{
 			move();
 			if(isOut())
 				onDelete();
-		}else {
-			if(IExecuteRandomActions.canGenerateRandomOvni(game)) {
-				enable = true;
-			    posX = 8;
-			}
+		}else if(IExecuteRandomActions.canGenerateRandomOvni(game)) {
+			enable = true;
+		    posX = 8;
 		}	
 	}
-	
 
 	@Override
 	public void onDelete() {
 		if(resistance == 0) {
 			enable = false;
+			game.enableShockWave();
 			plusPoints();
 		}else
 			enable = false;
 	}
-
+	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public GameObject autoInstance() {
-		// TODO Auto-generated method stub
-		return null;
+		return("O[" + resistance + "]");
 	}
 	
 	public int getPosX() {

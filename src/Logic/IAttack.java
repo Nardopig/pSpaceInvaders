@@ -1,4 +1,5 @@
 package Logic;
+
 import Logic.Objects.GameObject;
 
 public interface IAttack {

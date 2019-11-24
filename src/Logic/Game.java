@@ -14,7 +14,7 @@ import Logic.Objects.UCMShip;
 import Logic.Objects.UCMMissile;
 import Logic.GamePrinter;
 
-public class Game {
+public class Game implements IPlayerController{
 	
 	public final static int DIM_Y = 8;
     public final static int DIM_X = 9;
@@ -132,9 +132,41 @@ public class Game {
 		else if (doExit) return "Player exits the game";
 		else return "This should not happen";
 	}
-	// TODO implementar los metodos del interfaz IPlayerController
 
-	
+	@Override
+	public boolean move(int numCells) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean shootMissile() {
+		player.
+		return false;
+	}
+
+	@Override
+	public boolean shockWave() {	
+		return player.isShockWave();
+	}
+
+	@Override
+	public void receivePoints(int points) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void enableShockWave() {
+		player.setShockWave(true);
+		
+	}
+
+	@Override
+	public void enableMissile() {
+		player.setMissile(true);
+		
+	}
 	
 	
 	

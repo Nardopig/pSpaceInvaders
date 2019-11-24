@@ -6,13 +6,13 @@ import Logic.Lists.RegularShipList;
 public class RegularAlien extends AlienShip{
 	 	private int posX;
 	 	private int posY;
-	 	private int life = 2;
+	 	private static int resistance = 2;
 	 	private final int damage = 0;
-	 	private final int points = 5;
+	 	private final static int points = 5;
 	    
 	    
 	public RegularAlien(Game game, int posX, int posY) {
-		super(posX,posY,points);
+		super(game, posX,posY,resistance,points);
 		this.posX = posX;
 		this.posY = posY;
 	}
@@ -48,12 +48,12 @@ public class RegularAlien extends AlienShip{
 		this.posY = posY;
 	}
 
-	public int getLife() {
-		return life;
+	public int getResistance() {
+		return resistance;
 	}
 
-	public void setLife(int life) {
-		this.life = life;
+	public void setResistance(int life) {
+		this.resistance = life;
 	}
 
 	public Game getGame() {
@@ -70,6 +70,30 @@ public class RegularAlien extends AlienShip{
 
 	public int getPoints() {
 		return points;
+	}
+
+	@Override
+	public void computerAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDelete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

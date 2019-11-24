@@ -4,16 +4,24 @@ import Logic.Game;
 
 public class UCMMissile extends Weapon{
 
-	private int harm;
-	private int posX;
-	private int posY;
-	private boolean shot;
+	private static int harm = 1;
+	private boolean enable;
+	GameObject object;
 	
-	public UCMMissile(){
-		super(posX,posY);
-		this.posX = game.getShipPosX();
-		this.posY = game.getShipPosY();
-		harm = 1;
+	public UCMMissile(Game game, Ship ship){
+		super(game,ship,harm);
+		enable = true;
+	}
+	
+	public boolean performAttack(GameObject other){
+		if(other.isOnPosition(posX, posY)) {
+			if(other.receiveMissileAttack(harm))
+				return true;
+			else 
+				return false;
+		}
+		else
+			return false;
 	}
 	
 	public void update(){
@@ -22,6 +30,11 @@ public class UCMMissile extends Weapon{
 		}else {
 			game.eliminateLaser();
 		}
+	}
+	
+	public boolean receiveBombAttack(int damage) {
+		enable = false;
+		return true;
 	}
 	
 	private boolean posibleMove() {
@@ -64,12 +77,29 @@ public class UCMMissile extends Weapon{
 		this.game = game;
 	}
 
-	public boolean isShot() {
-		return shot;
+	public boolean isEnable() {
+		return enable;
 	}
 
-	public void setShot(boolean shot) {
-		this.shot = shot;
+	public void setEnable(boolean shot) {
+		this.enable = shot;
+	}
+
+	@Override
+	public void computerAction() {
+		performAttack(object);
+	}
+
+	@Override
+	public void onDelete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
