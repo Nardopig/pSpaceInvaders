@@ -3,16 +3,16 @@ package Logic.Objects;
 import Logic.Game;
 
 public class UCMShip extends Ship{
-	 	private static int posX = 3;
-	    private static int posY = 7;
-	    private static int resistance = 3;
+	 	private static int posX;
+	    private static int posY;
+	    private static  int resistance = 3;
 	    private final int damage = 1;
 	    private boolean shockWave;
 	    private boolean missile;
 	    private static Game game;
 	   
 
-		public UCMShip() {
+		public UCMShip(Game game, int posX, int posY) {
 			super(game,posX,posY,resistance);
 			shockWave = false;
 	    }

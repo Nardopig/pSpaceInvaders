@@ -141,7 +141,6 @@ public class Game implements IPlayerController{
 
 	@Override
 	public boolean shootMissile() {
-		player.
 		return false;
 	}
 

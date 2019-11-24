@@ -11,6 +11,7 @@ public class DestroyerAlien extends AlienShip{
 	private static int points = 10;
 	private int crashes;
 	private boolean bomb;
+	private Bomb bombs;
     
 	
     
@@ -47,8 +48,7 @@ public class DestroyerAlien extends AlienShip{
 	public void dropBomb() {
 		if(!bomb && IExecuteRandomActions.canGenerateRandomBomb(game)) {
 			bomb = true;
-			bombList.addBomb(this, destroyerList.destroyers[i].getPosX(),
-					destroyerList.destroyers[i].getPosY(), i);
+			game.getBoard().add(bombs);
 		}
 	}
 	
