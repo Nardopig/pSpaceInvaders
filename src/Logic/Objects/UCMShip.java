@@ -15,6 +15,8 @@ public class UCMShip extends Ship{
 		public UCMShip(Game game, int posX, int posY) {
 			super(game,posX,posY,resistance);
 			shockWave = false;
+			this.posX = posX;
+			this.posY = posY;
 	    }
 		
 		public int getPosX() {
@@ -82,8 +84,7 @@ public class UCMShip extends Ship{
 
 		@Override
 		public String toString() {
-			// TODO Auto-generated method stub
-			return null;
+			return("^__^");
 		}
 
 		public boolean isMissile() {

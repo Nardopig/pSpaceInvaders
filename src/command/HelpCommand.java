@@ -2,16 +2,16 @@ package command;
 
 import Logic.Game;
 
-public class HelpCommand extends Command{
-	
+public class HelpCommand extends Command {
+
 	static String name = "help";
 	static String shortcut = "h";
 	static String details = "help";
 	static String help = "Prints this help message.";
 	CommandGenerator generator;
-	
+
 	public HelpCommand() {
-		super(name,shortcut, details, help);
+		super(name, shortcut, details, help);
 		generator = new CommandGenerator();
 	}
 
@@ -23,11 +23,10 @@ public class HelpCommand extends Command{
 
 	@Override
 	public Command parse(String[] commandWords) {
-		if(matchCommandName(commandWords[0])) {
+		if (matchCommandName(commandWords[0])) {
 			return this;
-		}
-		else {
+		} else {
 			return null;
-			}
 		}
 	}
+}

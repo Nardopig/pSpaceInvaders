@@ -26,8 +26,7 @@ public class ListCommand extends Command{
 	public Command parse(String[] commandWords) {
 		if(matchCommandName(commandWords[0])) {
 			return this;
-		}
-		else {
+		} else {
 			return null;
 		}
 	}

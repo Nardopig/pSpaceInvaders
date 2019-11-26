@@ -92,8 +92,7 @@ public class RegularAlien extends AlienShip{
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return("C[" + resistance + "]");
 	}
 	
 	
