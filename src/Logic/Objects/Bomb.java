@@ -2,40 +2,38 @@ package Logic.Objects;
 
 import Logic.Game;
 
-public class Bomb extends Weapon{
+public class Bomb extends Weapon {
 
 	private int posX;
 	private int posY;
 	private boolean active;
 	private static int harm = 1;
 	private int points = 0;
-	
-	
-	public Bomb(Game game, int posX, int posY) {
-		super(game,posX,posY,harm);
+	private static int resistance = 1;
+	private DestroyerAlien destroyer;
+
+	public Bomb(Game game, int posX, int posY, DestroyerAlien destroyer) {
+		super(game, destroyer.getPosX(), destroyer.getPosY(), harm, resistance);
 		this.posX = posX;
 		this.posY = posY;
 		this.game = game;
-		
+		this.destroyer = destroyer;
+
 	}
-	
-	public boolean performAttack(GameObject other){
-		if(other.isOnPosition(posX, posY)) {
-			if(other.receiveBombAttack(harm))
+
+	public boolean performAttack(GameObject other) {
+		if (other.isOnPosition(posX, posY)) {
+			if (other.receiveBombAttack(harm)) {
+				game.removeObject(this);
+				destroyer.disableBomb();
 				return true;
-			else 
+			} else
 				return false;
-		}
-		else
+		} else
 			return false;
 	}
-	
-	public GameObject autoInstance() {
-		Bomb bomb = new Bomb(game,posX,posY);
-		return bomb;
-	}
-	
-	public boolean update(){
+
+	public boolean update() {
 		boolean posible = false;
 		if (posibleMove()) {
 			move();
@@ -44,23 +42,29 @@ public class Bomb extends Weapon{
 		return posible;
 	}
 	
+	public boolean receiveMissileAttack(int damage) {
+		getDamage(damage);
+		game.removeObject(this);
+		destroyer.disableBomb();
+		return true;
+	}
+
 	private boolean posibleMove() {
 		return ((posX + 1) < game.DIM_Y);
 	}
 
-	public void move(){
+	public void move() {
 		posX++;
 	}
-	
-	
+
 	public int getPosX() {
 		return posX;
 	}
-	
+
 	public void setPosX(int posX) {
 		this.posX = posX;
 	}
-	
+
 	public int getPosY() {
 		return posY;
 	}
@@ -68,7 +72,7 @@ public class Bomb extends Weapon{
 	public void setPosY(int posY) {
 		this.posY = posY;
 	}
-	
+
 	public Game getGame() {
 		return game;
 	}
@@ -76,7 +80,7 @@ public class Bomb extends Weapon{
 	public void setGame(Game game) {
 		this.game = game;
 	}
-	
+
 	public boolean isActive() {
 		return active;
 	}
@@ -96,18 +100,18 @@ public class Bomb extends Weapon{
 	@Override
 	public void computerAction() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onDelete() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public String toString() {
-		return("·");
+		return ("·");
 	}
 
 }

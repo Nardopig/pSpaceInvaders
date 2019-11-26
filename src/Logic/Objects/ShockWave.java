@@ -5,23 +5,23 @@ import Logic.Game;
 public class ShockWave extends Weapon{
 	
 	static final int harm = 1;
+	static int resistance = 0;
 	static int posX = 8;
 	static int posY = 0;
-	boolean enable = false;
 
 
 	public ShockWave(Game game) {
-		super(game,posX, posY,harm);
+		super(game,posX, posY,harm,resistance);
 		// TODO Auto-generated constructor stub
 	}
 	
 	public boolean performAttack(GameObject other){
-		return enable && other.receiveShockWaveAttack(harm);
+		return other.receiveShockWaveAttack(harm);
 	}
 
 	@Override
 	public void computerAction() {
-		for(int i = 0; i < game.getBoard().)
+		
 		
 	}
 

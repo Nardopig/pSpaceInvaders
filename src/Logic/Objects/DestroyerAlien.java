@@ -3,7 +3,7 @@ package Logic.Objects;
 import Logic.Game;
 import Logic.IExecuteRandomActions;
 
-public class DestroyerAlien extends AlienShip{
+public class DestroyerAlien extends AlienShip {
 	private int posX;
 	private int posY;
 	private static int resistance = 1;
@@ -12,47 +12,41 @@ public class DestroyerAlien extends AlienShip{
 	private int crashes;
 	private boolean bomb;
 	private Bomb bombs;
-    
-	
-    
 
 	public DestroyerAlien(Game game, int posX, int posY) {
-		super(game,posX,posY,resistance,points);
-    	bomb = false;
-    	this.game = game;
-    	this.posX = posX;
-    	this.posY = posY;
-    }
-    
-    public void update() {
-    	movimiento();
-    }
-    
-	public void movimiento() {
-    	if (game.shipCrashing) {
-    		posX++;
-    	}else if(!game.shipCrashing && game.modLeftSide()) {
-    		posY--;
-    	}else if(!game.shipCrashing && game.moduloDireccionDerecha()) {
-    		posY++;
-    	}
-    }
-	
-	public void dropBomb() {
-		
-		
-		
-		
+		super(game, posX, posY, resistance, points);
+		bomb = false;
+		this.game = game;
+		this.posX = posX;
+		this.posY = posY;
 	}
-	
-	public void dropBomb() {
-		if(!bomb && IExecuteRandomActions.canGenerateRandomBomb(game)) {
-			bomb = true;
-			game.getBoard().add(bombs);
+
+	public void update() {
+		movimiento();
+		dropBomb();
+	}
+
+	public void movimiento() {
+		if (game.shipCrashing) {
+			posX++;
+		} else if (!game.shipCrashing && game.modLeftSide()) {
+			posY--;
+		} else if (!game.shipCrashing && game.moduloDireccionDerecha()) {
+			posY++;
 		}
 	}
-	
-	
+
+	public void dropBomb() {
+		if (!bomb && IExecuteRandomActions.canGenerateRandomBomb(game)) {
+			bomb = true;
+			game.addObject(new Bomb(game, posX, posY, this));
+		}
+	}
+
+	public void disableBomb() {
+		bomb = false;
+	}
+
 	public int getPosX() {
 		return posX;
 	}
@@ -101,8 +95,6 @@ public class DestroyerAlien extends AlienShip{
 		this.crashes = crashes;
 	}
 
-	
-
 	public Game getGame() {
 		return game;
 	}
@@ -114,26 +106,24 @@ public class DestroyerAlien extends AlienShip{
 	@Override
 	public void computerAction() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onDelete() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public String toString() {
-		return("D[" + resistance + "]");
+		return ("D[" + resistance + "]");
 	}
-	
-   
-    }
 
+}

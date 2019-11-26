@@ -32,7 +32,15 @@ public class GameObjectBoard {
 
 	/* si vuestra solucion requiere que sea public, se puede cambiar */
 	public void remove(GameObject object) {
-		object = null;
+		for (int i = 0; i < currentObjects; i++) {
+			if (objects[i] == object) {
+				objects[i] = null;
+				for (int j = i; j < currentObjects; j++) {
+					objects[j] = objects[j + 1];
+				}
+				currentObjects--;
+			}
+		}
 	}
 
 	public void update() {

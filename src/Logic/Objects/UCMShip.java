@@ -2,97 +2,74 @@ package Logic.Objects;
 
 import Logic.Game;
 
-public class UCMShip extends Ship{
-	 	private static int posX;
-	    private static int posY;
-	    private static  int resistance = 3;
-	    private final int damage = 1;
-	    private boolean shockWave;
-	    private boolean missile;
-	    private static Game game;
-	   
+public class UCMShip extends Ship {
+	private static int posX;
+	private static int posY;
+	private static int resistance = 3;
+	private final int damage = 1;
+	private boolean shockWave;
+	private boolean missile;
+	private static Game game;
 
-		public UCMShip(Game game, int posX, int posY) {
-			super(game,posX,posY,resistance);
-			shockWave = false;
-			this.posX = posX;
-			this.posY = posY;
-	    }
-		
-		public int getPosX() {
-			return posX;
-		}
+	public UCMShip(Game game, int posX, int posY) {
+		super(game, posX, posY, resistance);
+		missile = false;
+		shockWave = false;
+		this.posX = posX;
+		this.posY = posY;
+	}
 
-		public void setPosX(int posX) {
-			this.posX = posX;
-		}
+	public void disableMissile() {
+		missile = false;
+	}
 
-		public int getPosY() {
-			return posY;
-		}
+	public boolean receiveBombAttack(int damage) {
+		getDamage(damage);
+		return true;
+	}
 
-		public void setPosY(int posY) {
-			this.posY = posY;
-		}
+	public void shoot() {
+		if (!missile)
+			game.addObject(new UCMMissile(game, this));
+	}
 
-		public int getLife() {
-			return resistance;
-		}
+	@Override
+	public void computerAction() {
+		// TODO Auto-generated method stub
 
-		public void setLife(int life) {
-			this.resistance = life;
-		}
+	}
 
-		public int getDamage() {
-			return damage;
-		}
-	    
-		public boolean isShockWave() {
-			return shockWave;
-		}
+	@Override
+	public void onDelete() {
+		// TODO Auto-generated method stub
 
-		public void setShockWave(boolean shockWave) {
-			this.shockWave = shockWave;
-		}
-		
-		public boolean receiveBombAttack(int damage) {
-			getDamage(damage);
-			return true;
-		}
+	}
 
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
 
-		@Override
-		public void computerAction() {
-			// TODO Auto-generated method stub
-			
-		}
+	}
 
+	@Override
+	public String toString() {
+		return ("^__^");
+	}
 
-		@Override
-		public void onDelete() {
-			// TODO Auto-generated method stub
-			
-		}
+	public boolean isShockWave() {
+		return shockWave;
+	}
 
+	public void setShockWave(boolean shockWave) {
+		this.shockWave = shockWave;
+	}
 
-		@Override
-		public void move() {
-			// TODO Auto-generated method stub
-			
-		}
+	public boolean isMissile() {
+		return missile;
+	}
 
+	public void setMissile(boolean missile) {
+		this.missile = missile;
+	}
 
-		@Override
-		public String toString() {
-			return("^__^");
-		}
-
-		public boolean isMissile() {
-			return missile;
-		}
-
-		public void setMissile(boolean missile) {
-			this.missile = missile;
-		}
-	    
 }

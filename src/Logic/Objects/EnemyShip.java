@@ -25,7 +25,7 @@ public abstract class EnemyShip extends Ship {
 	
 	@Override
 	public boolean receiveMissileAttack(int damage) {
-		getDamage(damage);	
-	return true;
+		getDamage(damage);
+		return true;
 	}
 }

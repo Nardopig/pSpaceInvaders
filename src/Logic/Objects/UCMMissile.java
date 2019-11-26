@@ -2,53 +2,54 @@ package Logic.Objects;
 
 import Logic.Game;
 
-public class UCMMissile extends Weapon{
+public class UCMMissile extends Weapon {
 
 	private static int harm = 1;
-	private boolean enable;
+	private static int resistance = 1;
+	private int posX, posY;
 	GameObject object;
-	
-	public UCMMissile(Game game, Ship ship){
-		super(game,ship,harm);
-		enable = true;
-	}
-	
-	public boolean performAttack(GameObject other){
-		if(other.isOnPosition(posX, posY)) {
-			if(other.receiveMissileAttack(harm))
-				return true;
-			else 
-				return false;
-		}
-		else
-			return false;
-	}
-	
-	public void update(){
-		if (posibleMove()) {
-			move();
-		}else {
-			game.eliminateLaser();
-		}
-	}
-	
-	public boolean receiveBombAttack(int damage) {
-		enable = false;
-		return true;
-	}
-	
-	private boolean posibleMove() {
-		return posX - 1 >= 0;
+	UCMShip ship;
+
+	public UCMMissile(Game game, UCMShip ship) {
+		super(game, ship.getPosX(), ship.getPosY(), harm, resistance);
+		this.ship = ship;
+		this.posX = ship.getPosX();
+		this.posY = ship.getPosY();
 	}
 
-	public void move(){
-		posX--;
+	public boolean performAttack(GameObject other) {
+		if (other.isOnPosition(posX, posY)) {
+			if (other.receiveMissileAttack(harm)) {
+				game.removeObject(this);
+				ship.disableMissile();
+				return true;
+			} else
+				return false;
+		} else
+			return false;
 	}
-	
+
+	public void update() {
+		move();
+	}
+
+	public boolean receiveBombAttack(int damage) {
+		getDamage(damage);
+		game.removeObject(this);
+		ship.disableMissile();
+		return true;
+	}
+
+	public void move() {
+		posX--;
+		if (isOut())
+			game.removeObject(this);
+	}
+
 	public int getHarm() {
 		return harm;
 	}
-	
+
 	public void setHarm(int damage) {
 		this.harm = damage;
 	}
@@ -77,14 +78,6 @@ public class UCMMissile extends Weapon{
 		this.game = game;
 	}
 
-	public boolean isEnable() {
-		return enable;
-	}
-
-	public void setEnable(boolean shot) {
-		this.enable = shot;
-	}
-
 	@Override
 	public void computerAction() {
 		performAttack(object);
@@ -93,14 +86,12 @@ public class UCMMissile extends Weapon{
 	@Override
 	public void onDelete() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public String toString() {
-		return("oo");
+		return ("oo");
 	}
 
-	
 }
-

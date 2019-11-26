@@ -5,14 +5,12 @@ import java.util.Random;
 import Logic.*;
 
 public class Ovni extends EnemyShip implements IExecuteRandomActions{
-	private static int posX = 8;
-    private static int posY = 0;
     private static int resistance = 1;
     private final static int points = 25;
     private boolean enable = false;
     
     
-    public Ovni(Game game) {
+    public Ovni(Game game, int posX, int posY) {
     	super(game,posX,posY,resistance,points);
     }
         

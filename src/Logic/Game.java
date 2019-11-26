@@ -93,6 +93,10 @@ public class Game implements IPlayerController{
 		board.add(object);
 	}
 	
+	public void removeObject(GameObject object) {
+		board.remove(object);
+	}
+	
 	public String positionToString(int ROWS, int COLS) {
 		return board.toString(ROWS, COLS);
 	}

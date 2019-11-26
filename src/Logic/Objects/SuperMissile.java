@@ -3,9 +3,11 @@ package Logic.Objects;
 import Logic.Game;
 
 public class SuperMissile extends Weapon {
+	
+	private static int resistance = 0;
 
-	public SuperMissile(Game game, Ship ship, int harm) {
-		super(game,ship,harm);
+	public SuperMissile(Game game, int posX, int posY, int harm) {
+		super(game,posX,posY,harm,resistance);
 		// TODO Auto-generated constructor stub
 	}
 
