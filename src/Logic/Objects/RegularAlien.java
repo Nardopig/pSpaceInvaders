@@ -1,7 +1,6 @@
 package Logic.Objects;
 
 import Logic.Game;
-import Logic.Lists.RegularShipList;
 
 public class RegularAlien extends AlienShip{
 	 	private int posX;
