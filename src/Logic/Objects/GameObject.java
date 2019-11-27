@@ -17,9 +17,6 @@ public abstract class GameObject implements IAttack {
 
 	}
 
-	public void autoInstance() {
-		GameObject object = new GameObject(game, posX, posY, resistance);
-	}
 	/* métodos que devuelven el valor de las coordinadas */
 
 	public boolean isAlive() {

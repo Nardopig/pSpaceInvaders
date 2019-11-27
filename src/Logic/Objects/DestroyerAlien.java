@@ -22,18 +22,8 @@ public class DestroyerAlien extends AlienShip {
 	}
 
 	public void update() {
-		movimiento();
+		move();
 		dropBomb();
-	}
-
-	public void movimiento() {
-		if (game.shipCrashing) {
-			posX++;
-		} else if (!game.shipCrashing && game.modLeftSide()) {
-			posY--;
-		} else if (!game.shipCrashing && game.moduloDireccionDerecha()) {
-			posY++;
-		}
 	}
 
 	public void dropBomb() {
@@ -79,47 +69,12 @@ public class DestroyerAlien extends AlienShip {
 		this.bomb = bomb;
 	}
 
-	public int getDamage() {
-		return damage;
-	}
-
-	public int getPoints() {
-		return points;
-	}
-
-	public int getCrashes() {
-		return crashes;
-	}
-
-	public void setCrashes(int crashes) {
-		this.crashes = crashes;
-	}
-
-	public Game getGame() {
-		return game;
-	}
-
-	public void setGame(Game game) {
-		this.game = game;
-	}
-
 	@Override
 	public void computerAction() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public void onDelete() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public String toString() {

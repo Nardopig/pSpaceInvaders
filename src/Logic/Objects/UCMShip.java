@@ -51,6 +51,18 @@ public class UCMShip extends Ship {
 
 	}
 
+	public boolean move(int numCells) {
+		if (posX + numCells < 0)
+			return false;
+		else if (posX + numCells > 8)
+			return false;
+		else {
+			posX += numCells;
+			return true;
+		}
+		
+	}
+
 	@Override
 	public String toString() {
 		return ("^__^");

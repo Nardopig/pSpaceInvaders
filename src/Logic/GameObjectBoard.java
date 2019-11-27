@@ -23,7 +23,12 @@ public class GameObjectBoard {
 	}
 
 	private GameObject getObjectInPosition(int posX, int posY) {
-		// TODO implement
+		GameObject object = null;
+		for(int i = 0; i < currentObjects; i++) {
+			if(objects[i].getPosX() == posX && objects[i].getPosY() == posY)
+				object = objects[i];
+		}
+		return object;
 	}
 
 	private int getIndex( /* coordinadas */ ) {

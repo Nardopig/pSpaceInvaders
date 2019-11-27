@@ -41,7 +41,7 @@ public class Bomb extends Weapon {
 		}
 		return posible;
 	}
-	
+
 	public boolean receiveMissileAttack(int damage) {
 		getDamage(damage);
 		game.removeObject(this);

@@ -22,13 +22,13 @@ public class RegularAlien extends AlienShip{
     }
     
 	public void movimiento() {
-    	if (game.shipCrashing) {
+    	/*if (game.shipCrashing) {
     		posX++;
     	}else if(!game.shipCrashing && game.modLeftSide()) {
     		posY--;
     	}else if(!game.shipCrashing && game.moduloDireccionDerecha()) {
     		posY++;
-    	}
+    	}*/
     }
 
 
@@ -78,11 +78,6 @@ public class RegularAlien extends AlienShip{
 		
 	}
 
-	@Override
-	public void onDelete() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void move() {
