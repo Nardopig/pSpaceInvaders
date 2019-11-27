@@ -6,7 +6,6 @@ public class Bomb extends Weapon {
 
 	private int posX;
 	private int posY;
-	private boolean active;
 	private static int harm = 1;
 	private int points = 0;
 	private static int resistance = 1;
@@ -57,46 +56,6 @@ public class Bomb extends Weapon {
 		posX++;
 	}
 
-	public int getPosX() {
-		return posX;
-	}
-
-	public void setPosX(int posX) {
-		this.posX = posX;
-	}
-
-	public int getPosY() {
-		return posY;
-	}
-
-	public void setPosY(int posY) {
-		this.posY = posY;
-	}
-
-	public Game getGame() {
-		return game;
-	}
-
-	public void setGame(Game game) {
-		this.game = game;
-	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	public int getHarm() {
-		return harm;
-	}
-
-	public void setHarm(int harm) {
-		this.harm = harm;
-	}
-
 	@Override
 	public void computerAction() {
 		// TODO Auto-generated method stub
@@ -112,6 +71,22 @@ public class Bomb extends Weapon {
 	@Override
 	public String toString() {
 		return ("·");
+	}
+	
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
 	}
 
 }

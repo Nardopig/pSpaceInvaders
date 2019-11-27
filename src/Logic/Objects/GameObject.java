@@ -23,7 +23,7 @@ public abstract class GameObject implements IAttack {
 		return this.resistance > 0;
 	}
 
-	public int getLive() {
+	public int getResistance() {
 		return this.resistance;
 	}
 

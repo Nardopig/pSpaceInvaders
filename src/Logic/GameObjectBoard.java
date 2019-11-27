@@ -24,15 +24,20 @@ public class GameObjectBoard {
 
 	private GameObject getObjectInPosition(int posX, int posY) {
 		GameObject object = null;
-		for(int i = 0; i < currentObjects; i++) {
-			if(objects[i].getPosX() == posX && objects[i].getPosY() == posY)
+		for (int i = 0; object == null && i < currentObjects; i++) {
+			if (objects[i].getPosX() == posX && objects[i].getPosY() == posY)
 				object = objects[i];
 		}
 		return object;
 	}
 
-	private int getIndex( /* coordinadas */ ) {
-		// TODO implement
+	private int getIndex(int posX, int posY) {
+		int index = -1;
+		for (int i = 0; index < 0 && i < currentObjects; i++) {
+			if (objects[i].getPosX() == posX && objects[i].getPosY() == posY)
+				index = i;
+		}
+		return index;
 	}
 
 	/* si vuestra solucion requiere que sea public, se puede cambiar */
@@ -64,10 +69,6 @@ public class GameObjectBoard {
 		for (int i = 0; i < currentObjects; i++) {
 			if (objects[i].getResistance() == 0) {
 				remove(objects[i]);
-				for (int j = i; j < currentObjects; j++) {
-					objects[j] = objects[j + 1];
-				}
-				currentObjects--;
 			}
 		}
 	}
