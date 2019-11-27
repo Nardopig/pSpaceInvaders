@@ -10,7 +10,7 @@ import command.CommandGenerator;
 
 public class Controller {
 
-	private static final char[] PROMPT = null;
+	private String PROMPT = null;
 	private Scanner in;
 	private Game game;
 	Level level;
@@ -22,6 +22,7 @@ public class Controller {
 		game = new Game(level);
 		in = new Scanner(System.in);
 		exit = false;
+		PROMPT = game.infoToString();
 	}
 
 	public void run() {
@@ -37,5 +38,6 @@ public class Controller {
 			}
 		}
 	}
+	
 
 }

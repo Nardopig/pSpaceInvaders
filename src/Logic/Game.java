@@ -29,6 +29,7 @@ public class Game implements IPlayerController {
 
 	private boolean doExit = false;
 	private BoardInitializer initializer;
+	private int score = 0;
 
 	public Game(Level level) {
 
@@ -36,6 +37,7 @@ public class Game implements IPlayerController {
 		this.rand = rand;
 		initializer = new BoardInitializer();
 		initGame();
+		currentCycle = 0;
 
 	}
 
@@ -101,8 +103,29 @@ public class Game implements IPlayerController {
 	}
 
 	public String infoToString() {
-		return /* cadena estado−juego para imprimir junto con el tablero */;
+		String toString;
+		
+		toString = ("Life: " + player.getResistance() + "\n" +
+        "Number of cycles: " + currentCycle + "\n" +
+        "Points: " + score + "\n" +
+        "Remaining aliens: " + 
+        (level.getNumRegularAliensPerRow() + level.getNumDestroyerAliensPerRow()) + "\n" +
+        "ShockWave: ");
+		
+        if(player.isShockWave())
+        	toString += "YES";
+        else 
+        	toString += "NO";
+    
+        System.out.println();
+        toString += "\n" + toString();
+		return toString;
 	}
+	
+	public String toString() {
+        GamePrinter gamePrinter = new GamePrinter(this, DIM_X, DIM_Y);
+        return gamePrinter.toString();
+    }
 
 	public String getWinnerMessage() {
 		if (playerWin())
@@ -136,7 +159,7 @@ public class Game implements IPlayerController {
 
 	@Override
 	public void receivePoints(int points) {
-		// TODO Auto-generated method stub
+		score  = points;
 
 	}
 

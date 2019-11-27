@@ -1,16 +1,20 @@
 package Logic;
 
-import Logic.Objects.GameObject;
-import Logic.Objects.RegularAlien;
-import Logic.Objects.UCMShip;
+import Logic.Objects.*;
 
 public class GameObjectBoard {
 
 	private GameObject[] objects;
-	private int currentObjects;
+	private int currentObjects = 0;
+	private int width, height;
+	private int TAM_MAX;
+	private Level level;
 
 	public GameObjectBoard(int width, int height) {
-		// TODO implement
+		this.width = width;
+		this.height = height;
+		TAM_MAX = width * height;
+		objects = new GameObject[TAM_MAX];
 	}
 
 	private int getCurrentObjects() {
@@ -74,7 +78,10 @@ public class GameObjectBoard {
 	}
 
 	public String toString(int ROWS, int COLS) {
-		// TODO implement
+		if (getObjectInPosition(ROWS, COLS) != null)
+			return getObjectInPosition(ROWS, COLS).toString();
+		else 
+			return " ";
 	}
 
 }

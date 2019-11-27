@@ -4,52 +4,56 @@ import java.util.Random;
 
 import Logic.*;
 
-public class Ovni extends EnemyShip implements IExecuteRandomActions{
-    private static int resistance = 1;
-    private final static int points = 25;
-    private boolean enable = false;
+public class Ovni extends EnemyShip implements IExecuteRandomActions {
+	private static int resistance = 1;
+	private final static int points = 25;
+	private boolean enable = false;
+
+	private int posX,posY;
     
     
     public Ovni(Game game, int posX, int posY) {
     	super(game,posX,posY,resistance,points);
+    	this.posX = posX;
+    	this.posY = posY;
     }
-        
-    public void update() {
+
+	public void update() {
 		computerAction();
 		performAttack(null);
-    }
-    
-    public void move() {
-    	posX--;	
-    }
-    
+	}
+
+	public void move() {
+		posX--;
+	}
+
 	@Override
 	public void computerAction() {
 		if (enable) {
 			move();
-			if(isOut())
+			if (isOut())
 				onDelete();
-		}else if(IExecuteRandomActions.canGenerateRandomOvni(game)) {
+		} else if (IExecuteRandomActions.canGenerateRandomOvni(game)) {
 			enable = true;
-		    posX = 8;
-		}	
+			posX = 8;
+		}
 	}
 
 	@Override
 	public void onDelete() {
-		if(resistance == 0) {
+		if (resistance == 0) {
 			enable = false;
 			game.enableShockWave();
 			plusPoints();
-		}else
+		} else
 			enable = false;
 	}
-	
+
 	@Override
 	public String toString() {
-		return("O[" + resistance + "]");
+		return ("O[" + resistance + "]");
 	}
-	
+
 	public int getPosX() {
 		return posX;
 	}
@@ -69,7 +73,7 @@ public class Ovni extends EnemyShip implements IExecuteRandomActions{
 	public int getLife() {
 		return resistance;
 	}
-	
+
 	public void setLife(int life) {
 		this.resistance = life;
 	}

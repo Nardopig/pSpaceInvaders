@@ -5,15 +5,18 @@ import Logic.Game;
 public abstract class AlienShip extends EnemyShip {
 
 	Game game;
-	int posX, posY;
+	int posX;
+	static int posY;
 	int border;
-	static int counter;
+	static int REMAINING_ALIENS; 
 
 	public AlienShip(Game game, int posX, int posY, int resistance, int points) {
 		super(game, posX, posY, resistance, points);
 		this.posX = posX;
 		this.posY = posY;
+		this.game = game;
 		border = -1;
+		REMAINING_ALIENS = game.getLevel().getNumDestroyerAliens() +  game.getLevel().getNumRegularAliens();
 	}
 
 	public boolean borderShip() {
@@ -36,7 +39,11 @@ public abstract class AlienShip extends EnemyShip {
 	}
 
 	public static boolean allDead() {
-		return counter == 0;
+		return REMAINING_ALIENS == 0;
+	}
+
+	public static boolean haveLanded() {
+		return posY == 7;
 	}
 
 }
