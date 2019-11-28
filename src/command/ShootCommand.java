@@ -15,6 +15,7 @@ public class ShootCommand extends Command{
 
 	@Override
 	public boolean execute(Game game) {
+		game.update();
 		return game.shootMissile();
 	}
 

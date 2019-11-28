@@ -45,7 +45,7 @@ public class GameObjectBoard {
 	}
 
 	/* si vuestra solucion requiere que sea public, se puede cambiar */
-	public void remove(GameObject object) {
+	private void remove(GameObject object) {
 		for (int i = 0; i < currentObjects; i++) {
 			if (objects[i] == object) {
 				objects[i] = null;
@@ -58,21 +58,29 @@ public class GameObjectBoard {
 	}
 
 	public void update() {
-		// TODO implement
+		for(int i = currentObjects-1; i >= 0; i--) {
+			objects[i].move();
+			checkAttacks(objects[i]);
+		}
+		removeDead();
 	}
 
 	private void checkAttacks(GameObject object) {
-
+		for(int i = 0; i < currentObjects; i++) 
+			objects[i].performAttack(object);
+				
 	}
 
 	public void computerAction() {
-		// TODO implement
+		for(int i = 0; i < currentObjects; i++) 
+			objects[i].computerAction();
 	}
 
 	private void removeDead() {
 		for (int i = 0; i < currentObjects; i++) {
 			if (objects[i].getResistance() == 0) {
 				remove(objects[i]);
+				i--;
 			}
 		}
 	}

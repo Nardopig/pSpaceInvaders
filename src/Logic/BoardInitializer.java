@@ -19,7 +19,7 @@ public class BoardInitializer {
 	}
 
 	private void initializeOvni() {
-		board.add(new Ovni(game, game.DIM_X - 1, 0));
+		board.add(new Ovni(game, game.DIM_X, 0));
 	}
 
 	private void initializeRegularAliens() {

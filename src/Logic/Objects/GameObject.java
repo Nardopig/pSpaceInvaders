@@ -26,6 +26,10 @@ public abstract class GameObject implements IAttack {
 	public int getResistance() {
 		return this.resistance;
 	}
+	
+	public void setResistance(int resistance) {
+		this.resistance = resistance;
+	}
 
 	public boolean isOnPosition(int posX, int posY) {
 		return posX == this.posX && posY == this.posY;
@@ -33,37 +37,35 @@ public abstract class GameObject implements IAttack {
 
 	public void getDamage(int damage) {
 		// this.resistance = damage >= this.resistance ? 0 : this.resistance − damage;
-		if (damage >= resistance)
-			resistance = 0;
+		if (damage >= this.resistance)
+			this.resistance = 0;
 		else
-			resistance -= damage;
+			this.resistance -= damage;
 	}
 
 	public boolean isOut() {
 		return !game.isOnBoard(posX, posY);
 	}
-
-	public abstract void computerAction();
-
-	public abstract void onDelete();
-
-	public abstract void move();
-
-	public abstract String toString();
-
+	
 	public int getPosX() {
-		return posX;
+		return this.posX;
 	}
-
+	
 	public void setPosX(int posX) {
 		this.posX = posX;
 	}
-
+	
 	public int getPosY() {
-		return posY;
+		return this.posY;
 	}
-
+	
 	public void setPosY(int posY) {
 		this.posY = posY;
 	}
+
+	public abstract void computerAction();
+	public abstract void onDelete();
+	public abstract void move();
+	public abstract String toString();
+
 }

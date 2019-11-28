@@ -9,15 +9,11 @@ public abstract class EnemyShip extends Ship {
 
 	private final int points;
 	private static int score = 0;
-	private int resistance;
 
 	public EnemyShip(Game game, int posX, int posY, int resistance, int points) {
 		super(game, posX, posY, resistance);
 		this.points = points;
-		this.resistance = resistance;
 	}
-
-	public abstract void update();
 
 	@Override
 	public boolean receiveMissileAttack(int damage) {
@@ -28,14 +24,13 @@ public abstract class EnemyShip extends Ship {
 
 	@Override
 	public void onDelete() {
-		if (resistance == 0) {
-			game.removeObject(this);
+		if (getResistance() == 0) {
 			plusPoints();
 		}
 	}
 	
 	public void plusPoints() {
-		score += points;
+		game.receivePoints(points);
 	}
 
 }

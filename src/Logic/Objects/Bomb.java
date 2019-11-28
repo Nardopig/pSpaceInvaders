@@ -4,26 +4,21 @@ import Logic.Game;
 
 public class Bomb extends Weapon {
 
-	private int posX;
-	private int posY;
 	private static int harm = 1;
 	private int points = 0;
 	private static int resistance = 1;
 	private DestroyerAlien destroyer;
 
 	public Bomb(Game game, int posX, int posY, DestroyerAlien destroyer) {
-		super(game, destroyer.getPosX(), destroyer.getPosY(), harm, resistance);
-		this.posX = posX;
-		this.posY = posY;
-		this.game = game;
+		super(game, posX, posY, harm, resistance);
 		this.destroyer = destroyer;
 
 	}
 
 	public boolean performAttack(GameObject other) {
-		if (other.isOnPosition(posX, posY)) {
+		if (other.isOnPosition(getPosX(), getPosY())) {
 			if (other.receiveBombAttack(harm)) {
-				game.removeObject(this);
+				setResistance(0);
 				destroyer.disableBomb();
 				return true;
 			} else
@@ -32,28 +27,18 @@ public class Bomb extends Weapon {
 			return false;
 	}
 
-	public boolean update() {
-		boolean posible = false;
-		if (posibleMove()) {
-			move();
-			posible = true;
-		}
-		return posible;
-	}
-
 	public boolean receiveMissileAttack(int damage) {
 		getDamage(damage);
-		game.removeObject(this);
-		destroyer.disableBomb();
+		onDelete();
 		return true;
 	}
 
-	private boolean posibleMove() {
-		return ((posX + 1) < game.DIM_Y);
-	}
-
 	public void move() {
-		posX++;
+		posY++;
+		if (isOut()) {
+			setResistance(0);
+			onDelete();
+		}
 	}
 
 	@Override
@@ -64,29 +49,14 @@ public class Bomb extends Weapon {
 
 	@Override
 	public void onDelete() {
-		// TODO Auto-generated method stub
-
+		if (getResistance() == 0) {
+			destroyer.disableBomb();
+		}
 	}
 
 	@Override
 	public String toString() {
-		return ("·");
-	}
-	
-	public int getPosX() {
-		return posX;
-	}
-
-	public void setPosX(int posX) {
-		this.posX = posX;
-	}
-
-	public int getPosY() {
-		return posY;
-	}
-
-	public void setPosY(int posY) {
-		this.posY = posY;
+		return ("o");
 	}
 
 }

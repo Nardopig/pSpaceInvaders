@@ -2,9 +2,6 @@ package Logic;
 
 import java.util.Random;
 
-import Logic.Lists.BombList;
-import Logic.Lists.DestroyerShipList;
-import Logic.Lists.RegularShipList;
 import Logic.Objects.AlienShip;
 import Logic.Objects.Bomb;
 import Logic.Objects.DestroyerAlien;
@@ -34,7 +31,7 @@ public class Game implements IPlayerController {
 	public Game(Level level) {
 
 		this.level = level;
-		this.rand = rand;
+		this.rand = new Random(System.nanoTime());
 		initializer = new BoardInitializer();
 		initGame();
 		currentCycle = 0;
@@ -68,10 +65,6 @@ public class Game implements IPlayerController {
 		board.add(object);
 	}
 
-	public void removeObject(GameObject object) {
-		board.remove(object);
-	}
-
 	public String positionToString(int ROWS, int COLS) {
 		return board.toString(ROWS, COLS);
 	}
@@ -95,7 +88,7 @@ public class Game implements IPlayerController {
 	}
 
 	public boolean isOnBoard(int posX, int posY) {
-		return posX > 0 && posX < DIM_X && posY > 0 && posY < DIM_Y;
+		return posX >= 0 && posX < DIM_X && posY >= 0 && posY < DIM_Y;
 	}
 
 	public void exit() {
@@ -104,28 +97,28 @@ public class Game implements IPlayerController {
 
 	public String infoToString() {
 		String toString;
-		
-		toString = ("Life: " + player.getResistance() + "\n" +
-        "Number of cycles: " + currentCycle + "\n" +
-        "Points: " + score + "\n" +
-        "Remaining aliens: " + 
-        (level.getNumRegularAliensPerRow() + level.getNumDestroyerAliensPerRow()) + "\n" +
-        "ShockWave: ");
-		
-        if(player.isShockWave())
-        	toString += "YES";
-        else 
-        	toString += "NO";
-    
-        System.out.println();
-        toString += "\n" + toString();
+
+		toString = ("Life: " + player.getResistance() + "\n"
+				+ "Number of cycles: " + currentCycle + "\n"
+				+ "Points: " + score + "\n"
+				+ "Remaining aliens: "
+				+ (level.getNumRegularAliensPerRow() + level.getNumDestroyerAliensPerRow()) + "\n"
+				+ "ShockWave: ");
+
+		if (player.isShockWave())
+			toString += "YES";
+		else
+			toString += "NO";
+
+		System.out.println();
+
 		return toString;
 	}
-	
+
 	public String toString() {
-        GamePrinter gamePrinter = new GamePrinter(this, DIM_X, DIM_Y);
-        return gamePrinter.toString();
-    }
+		GamePrinter gamePrinter = new GamePrinter(this, DIM_X, DIM_Y);
+		return infoToString() + gamePrinter.toString();
+	}
 
 	public String getWinnerMessage() {
 		if (playerWin())
@@ -159,7 +152,7 @@ public class Game implements IPlayerController {
 
 	@Override
 	public void receivePoints(int points) {
-		score  = points;
+		score = points;
 
 	}
 

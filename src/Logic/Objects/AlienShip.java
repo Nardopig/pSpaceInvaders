@@ -23,18 +23,18 @@ public abstract class AlienShip extends EnemyShip {
 		return posX == 0 || posX == 8;
 	}
 
-	public boolean borderInDirection() {
+	/*public boolean borderInDirection() {
 		if (borderShip() && !game.isOnBoard(posX + border, posY)) {
 			posY++;
 			border = border * -1;
 			return true;
 		} else
 			return false;
-	}
+	}*/
 	
 	@Override
 	public void move() {
-		if (!borderInDirection())
+		//if (!borderInDirection())
 		posX += border;
 	}
 

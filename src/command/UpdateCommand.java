@@ -4,8 +4,8 @@ import Logic.Game;
 
 public class UpdateCommand extends Command{
 
-	static String name = "none";
-	static String shortcut = " ";
+	static String name = " ";
+	static String shortcut = "";
 	static String details = "[none]";
 	static String help = "Skips one cycle.";
 	
@@ -16,7 +16,7 @@ public class UpdateCommand extends Command{
 	@Override
 	public boolean execute(Game game) {
 		game.update();
-		return false;
+		return true;
 	}
 
 	@Override

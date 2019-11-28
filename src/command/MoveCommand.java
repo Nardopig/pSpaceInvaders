@@ -19,8 +19,10 @@ public class MoveCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) {
-		if (direction == "left")
+		if (direction.equals("left")) {
 			numCells *= -1;
+		}
+		game.update();
 		return game.move(numCells);
 	}
 

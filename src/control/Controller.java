@@ -10,19 +10,18 @@ import command.CommandGenerator;
 
 public class Controller {
 
-	private String PROMPT = null;
+	private String PROMPT = "Command > ";
 	private Scanner in;
 	private Game game;
 	Level level;
 	private boolean exit;
-	String unknownCommandMsg = "UNK";
+	String unknownCommandMsg = "Unknown Command";
 
 	public Controller(Level level) {
 		this.level = level;
 		game = new Game(level);
 		in = new Scanner(System.in);
 		exit = false;
-		PROMPT = game.infoToString();
 	}
 
 	public void run() {
@@ -31,12 +30,18 @@ public class Controller {
 			String[] words = in.nextLine().toLowerCase().trim().split("\\s+");
 			Command command = CommandGenerator.parseCommand(words);
 			if (command != null) {
-				if (command.execute(game))
+				if (command.execute(game)) {
 					System.out.println(game);
+				}
 			} else {
 				System.out.format(unknownCommandMsg);
+				System.out.println();
 			}
 		}
+		if (game.aliensWin())
+			System.out.println("YOU LOSE");
+		else
+			System.out.println("YOU WIN");
 	}
 	
 

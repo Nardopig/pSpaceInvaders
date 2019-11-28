@@ -7,83 +7,45 @@ import Logic.*;
 public class Ovni extends EnemyShip implements IExecuteRandomActions {
 	private static int resistance = 1;
 	private final static int points = 25;
-	private boolean enable = false;
 
-	private int posX,posY;
-    
-    
-    public Ovni(Game game, int posX, int posY) {
-    	super(game,posX,posY,resistance,points);
-    	this.posX = posX;
-    	this.posY = posY;
-    }
+	boolean enable;
 
-	public void update() {
-		computerAction();
-		performAttack(null);
+	public Ovni(Game game, int posX, int posY) {
+		super(game, posX, posY, resistance, points);
+		setPosX(posX);
+		setPosY(posY);
+		enable = false;
 	}
 
 	public void move() {
-		posX--;
+		if (enable) {
+			setPosX(getPosX() - 1);
+			if (isOut())
+				enable = false;
+		}
 	}
 
 	@Override
 	public void computerAction() {
-		if (enable) {
-			move();
-			if (isOut())
-				onDelete();
-		} else if (IExecuteRandomActions.canGenerateRandomOvni(game)) {
+		if (!enable && IExecuteRandomActions.canGenerateRandomOvni(game)) {
+			setPosX(game.DIM_X);
+			setPosY(0);
 			enable = true;
-			posX = 8;
 		}
 	}
 
 	@Override
 	public void onDelete() {
-		if (resistance == 0) {
-			enable = false;
+		if (getResistance() == 0) {
 			game.enableShockWave();
 			plusPoints();
-		} else
 			enable = false;
+		}
 	}
 
 	@Override
 	public String toString() {
 		return ("O[" + resistance + "]");
-	}
-
-	public int getPosX() {
-		return posX;
-	}
-
-	public void setPosX(int posX) {
-		this.posX = posX;
-	}
-
-	public int getPosY() {
-		return posY;
-	}
-
-	public void setPosY(int posY) {
-		this.posY = posY;
-	}
-
-	public int getLife() {
-		return resistance;
-	}
-
-	public void setLife(int life) {
-		this.resistance = life;
-	}
-
-	public Game getGame() {
-		return game;
-	}
-
-	public void setGame(Game game) {
-		this.game = game;
 	}
 
 	public int getPoints() {
